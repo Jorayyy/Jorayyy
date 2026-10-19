@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>JORAYYY ARCADE — Portal Run</title>
+<title>JORAYYY ARCADE — Portal Kingdom</title>
 <meta name="description" content="A tiny Rick and Morty themed arcade by Jorayyy. Pick a character, dodge Jerrys, collect portal fluid." />
 <link rel="icon" href="assets/sprites/rick.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -265,7 +265,7 @@
 
 <header class="wrap">
   <h1>JORAYYY ARCADE</h1>
-  <div class="tagline"><span class="portal-dot"></span>PORTAL RUN v1.0<span class="portal-dot"></span></div>
+  <div class="tagline"><span class="portal-dot"></span>PORTAL KINGDOM v2.0<span class="portal-dot"></span></div>
   <div class="tagline blink" style="margin-top:10px">INSERT COIN TO CONTINUE</div>
 </header>
 
@@ -280,24 +280,24 @@
   <section class="panel">
     <h2>&#9654; GAME MODES</h2>
     <div class="tabs">
-      <button class="btn" id="tabRun">&#127939; PORTAL RUN</button>
+      <button class="btn" id="tabRun">&#127812; PORTAL KINGDOM</button>
       <button class="btn ghost" id="tabWhack">&#129692; MEESEEKS WHACK</button>
     </div>
 
     <div id="stageRun">
       <div class="stage">
-        <canvas id="game" width="480" height="270" aria-label="Portal Run game canvas"></canvas>
+        <canvas id="game" width="480" height="270" aria-label="Portal Kingdom game canvas"></canvas>
         <div class="hud">
           <div>SCORE <b id="hudScore">0</b></div>
           <div>BEST <b id="hudBest">0</b></div>
-          <div>SPEED <b id="hudSpeed">1.0x</b></div>
+          <div>LIVES <b id="hudLives">3</b></div>
         </div>
       </div>
       <div class="controls">
         <button class="btn" id="startBtn">&#9654; START</button>
         <button class="btn alt" id="jumpBtn">&#9650; JUMP</button>
         <button class="btn ghost" id="muteBtn">&#128266; SOUND: ON</button>
-        <span class="hint">SPACE / &#8593; / TAP to jump &middot; P to pause</span>
+        <span class="hint">SPACE / &#8593; jump &middot; &#8592; &#8594; move &middot; P pause</span>
       </div>
     </div>
 
@@ -378,7 +378,7 @@
   var ctx = canvas.getContext("2d");
   var hudScore = document.getElementById("hudScore");
   var hudBest = document.getElementById("hudBest");
-  var hudSpeed = document.getElementById("hudSpeed");
+  var hudLives = document.getElementById("hudLives");
   var scoreBody = document.getElementById("scoreBody");
   var quoteBox = document.getElementById("quoteBox");
   var quoteWho = document.getElementById("quoteWho");
@@ -446,10 +446,7 @@
   });
 
   function drawIdle() {
-    renderBackdrop();
-    ctx.drawImage(bgCanvas, 0, 0);
-    drawSprite(ctx, selected, 40, GROUND - 16 * SCALE, SCALE);
-    stamp("PRESS START", W / 2, H / 2 + 30);
+    render();
   }
 
   function stamp(text, cx, cy) {
@@ -468,32 +465,36 @@
     var b = bgCanvas.getContext("2d");
     b.imageSmoothingEnabled = false;
     var sky = b.createLinearGradient(0, 0, 0, GROUND);
-    sky.addColorStop(0, "#0a1a10");
-    sky.addColorStop(1, "#123018");
+    sky.addColorStop(0, "#0c1130");
+    sky.addColorStop(0.55, "#1b2a5e");
+    sky.addColorStop(1, "#3a2b63");
     b.fillStyle = sky;
     b.fillRect(0, 0, W, GROUND);
 
-    for (var i = 0; i < 46; i++) {
+    for (var i = 0; i < 64; i++) {
       var x = (i * 97) % W;
-      var y = (i * 53) % (GROUND - 40);
-      var size = i % 3 === 0 ? 2 : 1;
-      b.fillStyle = i % 5 === 0 ? "#f0e14a" : (i % 3 === 0 ? "#b084eb" : "#3f6b33");
-      b.fillRect(x, y, size, size);
+      var y = (i * 53) % (GROUND - 60);
+      var big = i % 7 === 0;
+      b.fillStyle = big ? "#f0e14a" : "rgba(198,214,255,0.6)";
+      b.fillRect(x, y, big ? 2 : 1, big ? 2 : 1);
     }
 
-    var portal = b.createRadialGradient(W - 70, 70, 4, W - 70, 70, 68);
+    var portal = b.createRadialGradient(W - 66, 64, 4, W - 66, 64, 74);
     portal.addColorStop(0, "rgba(198,242,122,0.55)");
-    portal.addColorStop(0.5, "rgba(151,206,76,0.22)");
+    portal.addColorStop(0.45, "rgba(151,206,76,0.2)");
     portal.addColorStop(1, "rgba(151,206,76,0)");
     b.fillStyle = portal;
-    b.fillRect(W - 170, -20, 200, 200);
+    b.fillRect(W - 175, -20, 215, 215);
 
-    b.fillStyle = "#20301c";
-    b.fillRect(0, GROUND, W, 4);
-    b.fillStyle = "#2c4527";
-    for (var gx = 0; gx < W; gx += 24) b.fillRect(gx, GROUND + 8, 12, 3);
-    b.fillStyle = "#131c12";
-    b.fillRect(0, GROUND + 14, W, H - GROUND - 14);
+    var hills = [[86, -10, "#241c48"], [150, 130, "#2b2154"], [112, 300, "#241c48"], [72, 410, "#312660"]];
+    for (var h = 0; h < hills.length; h++) {
+      b.fillStyle = hills[h][2];
+      b.beginPath();
+      b.arc(hills[h][1], GROUND + 8, hills[h][0], Math.PI, 0);
+      b.fill();
+    }
+    b.fillStyle = "#1a1440";
+    b.fillRect(0, GROUND - 10, W, 10);
   }
 
   var audio = null;
@@ -517,111 +518,311 @@
   }
 
   var state = "idle";
-  var player = { y: 0, vy: 0, onGround: true };
-  var obstacles = [];
-  var fluids = [];
+  var TILE = 24;
+  var GRAVITY = 1500;
+  var JUMP_V = -520;
+  var player = { x: 56, y: GROUND - 48, vx: 0, vy: 0, w: 30, h: 44, onGround: true };
+  var blocks = [];
+  var coins = [];
+  var enemies = [];
+  var gaps = [];
+  var pops = [];
   var particles = [];
+  var clouds = [];
   var speed = 1;
   var score = 0;
+  var lives = 3;
+  var invuln = 0;
+  var coyote = 0;
+  var jumpBuf = 0;
   var best = Number(localStorage.getItem("jorayyy-best") || 0);
   var spawnTimer = 0;
-  var fluidTimer = 0;
   var last = 0;
   var tick = 0;
+  var keys = { left: false, right: false };
+
+  for (var ci = 0; ci < 5; ci++) {
+    clouds.push({ x: ci * 128 + 16, y: 24 + (ci % 3) * 24, s: 0.7 + (ci % 2) * 0.5 });
+  }
 
   function reset() {
     state = "running";
-    player.y = GROUND - 16 * SCALE;
+    player.x = 56;
+    player.y = GROUND - player.h - 4;
+    player.vx = 0;
     player.vy = 0;
     player.onGround = true;
-    obstacles = [];
-    fluids = [];
+    blocks = [];
+    coins = [];
+    enemies = [];
+    gaps = [];
+    pops = [];
     particles = [];
     speed = 1;
     score = 0;
-    spawnTimer = 0.7;
-    fluidTimer = 0.4;
+    lives = 3;
+    invuln = 0.9;
+    coyote = 0;
+    jumpBuf = 0;
+    spawnTimer = 1.2;
     tick = 0;
     hudScore.textContent = "0";
-    hudSpeed.textContent = "1.0x";
+    hudBest.textContent = String(best);
+    hudLives.textContent = "3";
   }
 
   function jump() {
     if (state === "idle" || state === "over") { reset(); beep(880, 0.08); return; }
     if (state === "paused") { state = "running"; return; }
-    if (!player.onGround) return;
-    player.vy = -430;
+    jumpBuf = 0.12;
+    if (player.onGround || coyote > 0) doJump();
+  }
+
+  function doJump() {
+    player.vy = JUMP_V;
     player.onGround = false;
-    beep(520, 0.08);
+    coyote = 0;
+    jumpBuf = 0;
+    beep(520, 0.07);
   }
 
-  function spawnObstacle() {
-    var kind = Math.random() < 0.5 ? "jerry" : "block";
-    obstacles.push({
-      kind: kind,
-      x: W + 10,
-      w: kind === "jerry" ? 14 * SCALE : 20,
-      h: kind === "jerry" ? 15 * SCALE : 26,
-      hit: false
-    });
+  function cutJump() {
+    if (player.vy < -200) player.vy = -200;
   }
 
-  function spawnFluid() {
-    fluids.push({ x: W + 10, y: GROUND - (24 + Math.random() * 68), r: 7, got: false });
+  function groundAt(x, w) {
+    for (var i = 0; i < gaps.length; i++) {
+      if (x + w > gaps[i].x + 4 && x < gaps[i].x + gaps[i].w - 4) return false;
+    }
+    return true;
+  }
+
+  function spawnCoinArc(base, count) {
+    for (var i = 0; i < count; i++) {
+      coins.push({
+        x: base + i * 22,
+        y: GROUND - 78 - Math.sin((i / Math.max(1, count - 1)) * Math.PI) * 26,
+        seed: i * 1.7
+      });
+    }
+  }
+
+  function spawnBlockRow() {
+    var base = W + 40;
+    var y = GROUND - 104;
+    var layout = Math.random() < 0.5
+      ? ["brick", "question", "brick"]
+      : ["question", "brick", "question"];
+    for (var i = 0; i < layout.length; i++) {
+      blocks.push({ x: base + i * TILE, y: y, w: TILE, h: TILE, kind: layout[i], bump: 0 });
+    }
+    if (Math.random() < 0.45) coins.push({ x: base + TILE, y: y - 30, seed: 0.6 });
+  }
+
+  function spawnPipe() {
+    if (!groundAt(W + 40, 40)) { spawnCoinArc(W + 40, 4); return; }
+    var h = Math.random() < 0.5 ? 48 : 72;
+    blocks.push({ x: W + 40, y: GROUND - h, w: 36, h: h, kind: "pipe", bump: 0 });
+  }
+
+  function spawnJerry() {
+    var count = Math.random() < 0.3 ? 2 : 1;
+    for (var i = 0; i < count; i++) {
+      enemies.push({
+        x: W + 40 + i * 74,
+        y: GROUND - 44,
+        w: 34,
+        h: 44,
+        vy: 0,
+        dead: false,
+        dieT: 0,
+        seed: Math.random() * 6
+      });
+    }
+  }
+
+  function spawnPit() {
+    if (!groundAt(W + 40, 40) || !groundAt(W + 40, 130)) { spawnCoinArc(W + 40, 5); return; }
+    gaps.push({ x: W + 64, w: 66 });
+    spawnCoinArc(W + 66, 4);
+  }
+
+  function spawnPattern() {
+    var roll = Math.random();
+    if (roll < 0.22) spawnCoinArc(W + 40, 5);
+    else if (roll < 0.44) spawnBlockRow();
+    else if (roll < 0.6) spawnPipe();
+    else if (roll < 0.8) spawnJerry();
+    else spawnPit();
+  }
+
+  function overlap(a, b) {
+    return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
+  }
+
+  function hurt() {
+    if (invuln > 0 || state !== "running") return;
+    lives -= 1;
+    hudLives.textContent = String(Math.max(0, lives));
+    burst(player.x + 15, player.y + 20, "#d64545");
+    beep(150, 0.3, "sawtooth");
+    if (lives <= 0) { gameOver(); return; }
+    invuln = 1.6;
+    player.vy = -260;
+    player.y -= 4;
+  }
+
+  function fell() {
+    if (state !== "running") return;
+    lives -= 1;
+    hudLives.textContent = String(Math.max(0, lives));
+    beep(120, 0.4, "triangle");
+    if (lives <= 0) { gameOver(); return; }
+    invuln = 2;
+    gaps = gaps.filter(function (g) { return g.x > 240; });
+    enemies = enemies.filter(function (e) { return e.x > 240; });
+    blocks = blocks.filter(function (b) { return b.x > 240; });
+    player.x = 56;
+    player.y = GROUND - 150;
+    player.vy = 0;
+  }
+
+  function gameOver() {
+    state = "over";
+    if (Math.floor(score) > best) {
+      best = Math.floor(score);
+      localStorage.setItem("jorayyy-best", String(best));
+      saveScore(selected, best);
+    }
+    hudBest.textContent = String(best);
+    beep(180, 0.4, "triangle");
   }
 
   function update(dt) {
     tick += dt;
-    speed = Math.min(2.6, 1 + tick / 26);
-    score += dt * 12 * speed;
-    hudScore.textContent = String(Math.floor(score));
-    hudSpeed.textContent = speed.toFixed(1) + "x";
+    speed = 1 + Math.min(0.75, tick / 55);
+    var world = 148 * speed + (keys.right ? 34 : 0);
+    score += dt * 3.2 * speed;
+    invuln = Math.max(0, invuln - dt);
 
-    player.vy += 1350 * dt;
+    var accel = keys.right ? 520 : (keys.left ? -680 : 0);
+    player.vx += (accel - player.vx * 6) * dt;
+    player.x += player.vx * dt;
+    if (player.x < 22) { player.x = 22; player.vx = 0; }
+    if (player.x > W * 0.62) { player.x = W * 0.62; player.vx = 0; }
+
+    var prevY = player.y;
+    if (player.onGround) coyote = 0.1;
+    else coyote = Math.max(0, coyote - dt);
+    if (jumpBuf > 0) {
+      jumpBuf -= dt;
+      if (player.onGround || coyote > 0) doJump();
+    }
+
+    player.vy += GRAVITY * dt;
     player.y += player.vy * dt;
-    var floor = GROUND - 16 * SCALE;
-    if (player.y >= floor) { player.y = floor; player.vy = 0; player.onGround = true; }
+    player.onGround = false;
 
-    spawnTimer -= dt;
-    if (spawnTimer <= 0) {
-      spawnObstacle();
-      spawnTimer = Math.max(0.42, 0.95 - tick * 0.012);
+    var feet = player.x + player.w / 2;
+    if (groundAt(feet - 8, 16) && player.vy >= 0 &&
+        prevY + player.h <= GROUND + 2 && player.y + player.h >= GROUND) {
+      if (prevY + player.h < GROUND - 12) dust();
+      player.y = GROUND - player.h;
+      player.vy = 0;
+      player.onGround = true;
     }
 
-    fluidTimer -= dt;
-    if (fluidTimer <= 0) {
-      spawnFluid();
-      fluidTimer = 0.8 + Math.random();
+    for (var i = blocks.length - 1; i >= 0; i--) {
+      var b = blocks[i];
+      b.x -= world * dt;
+      if (b.bump > 0) b.bump = Math.max(0, b.bump - dt * 3.6);
+      if (b.x + b.w < -40) { blocks.splice(i, 1); continue; }
+      if (player.x + player.w <= b.x + 3 || player.x >= b.x + b.w - 3) continue;
+
+      var prevBottom = prevY + player.h;
+      if (player.vy >= 0 && prevBottom <= b.y + 6 && player.y + player.h >= b.y) {
+        player.y = b.y - player.h;
+        player.vy = 0;
+        player.onGround = true;
+      } else if (player.vy < 0 && prevY >= b.y + b.h - 6 && player.y <= b.y + b.h) {
+        player.y = b.y + b.h;
+        player.vy = 40;
+        if (b.kind === "question") {
+          b.kind = "used";
+          b.bump = 1;
+          pops.push({ x: b.x + TILE / 2, y: b.y - 6, vy: -200, life: 0.55 });
+          score += 50;
+          beep(1150, 0.07);
+          beep(1500, 0.05);
+        } else if (b.kind === "brick") {
+          b.bump = 1;
+          beep(240, 0.06);
+        }
+      } else if (b.kind === "pipe" && player.y + player.h > b.y + 8 && player.y < b.y + b.h - 4) {
+        hurt();
+      }
     }
 
-    var px = 40;
-    var pw = 16 * SCALE - 8;
-    var ph = 16 * SCALE - 4;
-    var py = player.y + 4;
-
-    obstacles.forEach(function (o) {
-      o.x -= (150 + 90 * speed) * dt;
-      if (!o.hit && px + pw > o.x + 3 && px < o.x + o.w - 3 && py + ph > GROUND - o.h && py < GROUND) {
-        o.hit = true;
-        state = "over";
-        beep(140, 0.35, "sawtooth");
-        burst(o.x, GROUND - o.h / 2);
+    for (i = enemies.length - 1; i >= 0; i--) {
+      var e = enemies[i];
+      e.x -= (world + 14) * dt;
+      if (e.dead) {
+        e.dieT -= dt;
+        if (e.dieT <= 0) enemies.splice(i, 1);
+        continue;
       }
-    });
-    obstacles = obstacles.filter(function (o) { return o.x > -80; });
-
-    fluids.forEach(function (f) {
-      f.x -= (150 + 90 * speed) * dt;
-      var cx = px + pw / 2;
-      var cy = py + ph / 2;
-      if (!f.got && Math.abs(cx - f.x) < 18 && Math.abs(cy - f.y) < 18) {
-        f.got = true;
-        score += 25;
-        beep(1050, 0.07);
-        burst(f.x, f.y, "#f0e14a");
+      if (e.x + e.w < -50) { enemies.splice(i, 1); continue; }
+      if (groundAt(e.x + 8, e.w - 16)) {
+        e.y = GROUND - e.h;
+        e.vy = 0;
+      } else {
+        e.vy += GRAVITY * dt;
+        e.y += e.vy * dt;
+        if (e.y > H + 40) { enemies.splice(i, 1); continue; }
       }
+      var ebox = { x: e.x + 5, y: e.y + 6, w: e.w - 10, h: e.h - 8 };
+      var pbox = { x: player.x + 3, y: player.y + 3, w: player.w - 6, h: player.h - 4 };
+      if (overlap(pbox, ebox)) {
+        if (player.vy > 60 && prevY + player.h <= e.y + 18) {
+          e.dead = true;
+          e.dieT = 0.35;
+          player.vy = -350;
+          score += 100;
+          burst(e.x + e.w / 2, e.y + 10, "#97ce4c");
+          beep(880, 0.08);
+          beep(1320, 0.06);
+        } else {
+          hurt();
+        }
+      }
+    }
+
+    for (i = coins.length - 1; i >= 0; i--) {
+      var c = coins[i];
+      c.x -= world * dt;
+      if (c.x < -30) { coins.splice(i, 1); continue; }
+      var cx = player.x + player.w / 2;
+      var cy = player.y + 18;
+      if (Math.abs(c.x - cx) < 21 && Math.abs(c.y - cy) < 26) {
+        coins.splice(i, 1);
+        score += 50;
+        beep(1250, 0.06);
+        beep(1650, 0.05);
+        burst(c.x, c.y, "#f0e14a");
+      }
+    }
+
+    for (i = gaps.length - 1; i >= 0; i--) {
+      gaps[i].x -= world * dt;
+      if (gaps[i].x + gaps[i].w < -40) gaps.splice(i, 1);
+    }
+
+    pops.forEach(function (p) {
+      p.y += p.vy * dt;
+      p.vy += 520 * dt;
+      p.life -= dt;
     });
-    fluids = fluids.filter(function (f) { return f.x > -20 && !f.got; });
+    pops = pops.filter(function (p) { return p.life > 0; });
 
     particles.forEach(function (p) {
       p.x += p.vx * dt;
@@ -631,13 +832,27 @@
     });
     particles = particles.filter(function (p) { return p.life > 0; });
 
-    if (state === "over") {
-      if (Math.floor(score) > best) {
-        best = Math.floor(score);
-        localStorage.setItem("jorayyy-best", String(best));
-        saveScore(selected, best);
-      }
-      hudBest.textContent = String(best);
+    spawnTimer -= dt;
+    if (spawnTimer <= 0) {
+      spawnPattern();
+      spawnTimer = Math.max(0.85, 1.25 + Math.random() * 0.5 - tick * 0.006);
+    }
+
+    if (player.y > H + 40) fell();
+
+    hudScore.textContent = String(Math.floor(score));
+  }
+
+  function dust() {
+    for (var i = 0; i < 4; i++) {
+      particles.push({
+        x: player.x + 6 + Math.random() * 18,
+        y: GROUND - 2,
+        vx: (Math.random() - 0.5) * 70,
+        vy: -40 - Math.random() * 40,
+        life: 0.25 + Math.random() * 0.2,
+        color: "#c9b48c"
+      });
     }
   }
 
@@ -653,46 +868,173 @@
     }
   }
 
+  function drawClouds() {
+    ctx.fillStyle = "rgba(190,180,255,0.2)";
+    for (var i = 0; i < clouds.length; i++) {
+      var c = clouds[i];
+      var span = W + 180;
+      var cx = Math.round(((c.x - tick * 12 * c.s) % span + span) % span - 90);
+      var cy = c.y;
+      ctx.fillRect(cx, cy + 2, 44, 8);
+      ctx.fillRect(cx + 6, cy - 4, 12, 8);
+      ctx.fillRect(cx + 17, cy - 9, 14, 13);
+      ctx.fillRect(cx + 30, cy - 3, 10, 7);
+      ctx.fillRect(cx + 3, cy + 10, 36, 4);
+    }
+  }
+
+  function drawGround() {
+    for (var x = -TILE; x < W + TILE; x += TILE) {
+      var cut = false;
+      for (var i = 0; i < gaps.length; i++) {
+        if (x + TILE > gaps[i].x && x < gaps[i].x + gaps[i].w) { cut = true; break; }
+      }
+      if (cut) continue;
+      ctx.fillStyle = "#6fcf4a";
+      ctx.fillRect(x, GROUND, TILE, 5);
+      ctx.fillStyle = "#4ea336";
+      ctx.fillRect(x, GROUND + 5, TILE, 3);
+      ctx.fillStyle = "#b5642f";
+      ctx.fillRect(x, GROUND + 8, TILE, H - GROUND - 8);
+      ctx.fillStyle = "#8a4622";
+      ctx.fillRect(x, GROUND + 8, TILE, 2);
+      ctx.fillStyle = "rgba(86,36,12,0.55)";
+      ctx.fillRect(x + 2, GROUND + 18, TILE - 4, 2);
+      ctx.fillRect(x + 2, GROUND + 30, TILE - 4, 2);
+      ctx.fillRect(x + 11, GROUND + 9, 2, 9);
+      ctx.fillRect(x + 3, GROUND + 20, 2, 10);
+      ctx.fillRect(x + 19, GROUND + 20, 2, 10);
+    }
+  }
+
+  function drawBlock(b) {
+    var y = Math.round(b.y - Math.sin(b.bump * Math.PI) * 5);
+    var x = Math.round(b.x);
+    if (b.kind === "pipe") {
+      ctx.fillStyle = "#0f4d20";
+      ctx.fillRect(x - 3, y + 6, b.w + 6, b.h - 6);
+      ctx.fillStyle = "#2f9e44";
+      ctx.fillRect(x, y + 8, b.w, b.h - 8);
+      ctx.fillStyle = "#1b6b2c";
+      ctx.fillRect(x + b.w - 9, y + 8, 9, b.h - 8);
+      ctx.fillStyle = "#7ee27a";
+      ctx.fillRect(x + 4, y + 10, 4, b.h - 12);
+      ctx.fillStyle = "#0f4d20";
+      ctx.fillRect(x - 5, y, b.w + 10, 12);
+      ctx.fillStyle = "#2f9e44";
+      ctx.fillRect(x - 3, y + 2, b.w + 6, 8);
+      ctx.fillStyle = "#7ee27a";
+      ctx.fillRect(x - 1, y + 4, b.w - 2, 2);
+      return;
+    }
+    if (b.kind === "question") {
+      ctx.fillStyle = "#8a5a00";
+      ctx.fillRect(x, y, TILE, TILE);
+      ctx.fillStyle = "#f0b429";
+      ctx.fillRect(x + 2, y + 2, TILE - 4, TILE - 4);
+      ctx.fillStyle = "#ffd35e";
+      ctx.fillRect(x + 3, y + 3, TILE - 6, 3);
+      ctx.fillStyle = "#8a5a00";
+      ctx.fillRect(x + 3, y + 3, 3, 3);
+      ctx.fillRect(x + TILE - 6, y + 3, 3, 3);
+      ctx.fillRect(x + 3, y + TILE - 6, 3, 3);
+      ctx.fillRect(x + TILE - 6, y + TILE - 6, 3, 3);
+      ctx.fillStyle = "#fff2b0";
+      ctx.font = "12px 'Press Start 2P', monospace";
+      ctx.textAlign = "center";
+      ctx.fillText("?", x + TILE / 2, y + TILE - 7);
+      return;
+    }
+    if (b.kind === "used") {
+      ctx.fillStyle = "#3d3427";
+      ctx.fillRect(x, y, TILE, TILE);
+      ctx.fillStyle = "#5c5040";
+      ctx.fillRect(x + 2, y + 2, TILE - 4, TILE - 4);
+      ctx.fillStyle = "#3d3427";
+      ctx.fillRect(x + 3, y + 3, 3, 3);
+      ctx.fillRect(x + TILE - 6, y + 3, 3, 3);
+      ctx.fillRect(x + 3, y + TILE - 6, 3, 3);
+      ctx.fillRect(x + TILE - 6, y + TILE - 6, 3, 3);
+      return;
+    }
+    ctx.fillStyle = "#7a3f1c";
+    ctx.fillRect(x, y, TILE, TILE);
+    ctx.fillStyle = "#c06a32";
+    ctx.fillRect(x + 1, y + 1, TILE - 2, TILE - 2);
+    ctx.fillStyle = "#e08a4a";
+    ctx.fillRect(x + 2, y + 2, TILE - 4, 3);
+    ctx.fillStyle = "#7a3f1c";
+    ctx.fillRect(x + 1, y + 11, TILE - 2, 2);
+    ctx.fillRect(x + 11, y + 1, 2, 10);
+    ctx.fillRect(x + 2, y + 13, 2, 10);
+    ctx.fillRect(x + 20, y + 13, 2, 10);
+  }
+
+  function drawCoinShape(x, y, r) {
+    var spin = Math.abs(Math.cos(tick * 6 + (r || 0)));
+    var w = 3 + spin * 8;
+    ctx.fillStyle = "#a9861d";
+    ctx.beginPath();
+    ctx.ellipse(x, y, w + 1, 10, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = "#f0e14a";
+    ctx.beginPath();
+    ctx.ellipse(x, y, Math.max(1, w), 8, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = "#fff7b8";
+    ctx.fillRect(Math.round(x) - 1, Math.round(y) - 4, 2, 6);
+  }
+
+  function drawCoin(c) {
+    drawCoinShape(c.x, c.y + Math.sin(tick * 4 + c.seed) * 2, c.seed);
+  }
+
+  function drawEnemy(e) {
+    var img = images.jerry;
+    if (!img || !img.complete || !img.naturalWidth) return;
+    if (e.dead) {
+      ctx.drawImage(img, Math.round(e.x - 7), Math.round(e.y + e.h - 16), 48, 16);
+    } else {
+      var bob = Math.round(Math.sin(tick * 9 + e.seed) * 1.5);
+      ctx.drawImage(img, Math.round(e.x - 7), Math.round(e.y - 4 + bob), 48, 48);
+    }
+  }
+
+  function drawPlayer() {
+    if (invuln > 0 && Math.floor(tick * 14) % 2 === 0) return;
+    var bob = player.onGround ? Math.round(Math.sin(tick * 16) * 1) : 0;
+    drawSprite(ctx, selected, player.x - 9, player.y - 4 + bob, SCALE);
+  }
+
   function render() {
     ctx.imageSmoothingEnabled = false;
     ctx.drawImage(bgCanvas, 0, 0);
-
-    fluids.forEach(function (f) {
-      ctx.fillStyle = "#c6f27a";
-      ctx.fillRect(Math.round(f.x - 4), Math.round(f.y - 4), 8, 8);
-      ctx.fillStyle = "#97ce4c";
-      ctx.fillRect(Math.round(f.x - 2), Math.round(f.y - 2), 4, 4);
-    });
-
-    obstacles.forEach(function (o) {
-      if (o.kind === "jerry") {
-        drawSprite(ctx, "jerry", o.x, GROUND - o.h, SCALE);
-      } else {
-        ctx.fillStyle = "#b084eb";
-        ctx.fillRect(Math.round(o.x), GROUND - o.h, o.w, o.h);
-        ctx.fillStyle = "#7c5bb0";
-        ctx.fillRect(Math.round(o.x + 4), GROUND - o.h + 4, o.w - 8, 6);
-      }
-    });
-
-    drawSprite(ctx, selected, 40, player.y, SCALE);
-
+    drawClouds();
+    drawGround();
+    blocks.forEach(drawBlock);
+    coins.forEach(drawCoin);
+    pops.forEach(function (p) { drawCoinShape(p.x, p.y, 0); });
+    enemies.forEach(drawEnemy);
+    drawPlayer();
     particles.forEach(function (p) {
+      ctx.globalAlpha = Math.min(1, p.life * 4);
       ctx.fillStyle = p.color;
       ctx.fillRect(Math.round(p.x), Math.round(p.y), 3, 3);
+      ctx.globalAlpha = 1;
     });
 
     if (state === "idle") {
-      stamp("PRESS START", W / 2, 70);
-      stamp(SPRITES[selected].label + " IS READY", W / 2, 96);
+      stamp("PRESS START", W / 2, 84);
+      stamp("PORTAL KINGDOM", W / 2, 112);
+      stamp("COIN +50   STOMP +100", W / 2, 140);
     } else if (state === "paused") {
-      stamp("PAUSED", W / 2, 70);
+      stamp("PAUSED", W / 2, 84);
     } else if (state === "over") {
-      ctx.fillStyle = "rgba(7,11,8,0.72)";
+      ctx.fillStyle = "rgba(7,11,8,0.75)";
       ctx.fillRect(0, 0, W, H);
-      stamp("WUBBA LUBBA DUB DUB", W / 2, 90);
-      stamp("SCORE " + Math.floor(score), W / 2, 122);
-      stamp("PRESS START TO RETRY", W / 2, 154);
+      stamp("GAME OVER", W / 2, 84);
+      stamp("SCORE " + Math.floor(score), W / 2, 116);
+      stamp("PRESS START TO RETRY", W / 2, 148);
     }
   }
 
@@ -940,6 +1282,8 @@
   }
 
   document.addEventListener("keydown", function (e) {
+    if (e.code === "ArrowLeft" || e.code === "KeyA") { keys.left = true; e.preventDefault(); }
+    if (e.code === "ArrowRight" || e.code === "KeyD") { keys.right = true; e.preventDefault(); }
     if (["Space", "ArrowUp", "KeyW"].indexOf(e.code) >= 0) {
       e.preventDefault();
       if (mode === "run") jump();
@@ -956,9 +1300,20 @@
     }
   });
 
-  canvas.addEventListener("pointerdown", function (e) { e.preventDefault(); jump(); });
+  document.addEventListener("keyup", function (e) {
+    if (e.code === "ArrowLeft" || e.code === "KeyA") keys.left = false;
+    if (e.code === "ArrowRight" || e.code === "KeyD") keys.right = false;
+    if (["Space", "ArrowUp", "KeyW"].indexOf(e.code) >= 0) cutJump();
+  });
+
+  window.addEventListener("blur", function () { keys.left = false; keys.right = false; });
+
+  canvas.addEventListener("pointerdown", function (e) { e.preventDefault(); if (mode === "run") jump(); });
+  canvas.addEventListener("pointerup", cutJump);
+  canvas.addEventListener("pointerleave", cutJump);
   whackCanvas.addEventListener("pointerdown", whackPointer);
-  jumpBtn.addEventListener("click", jump);
+  jumpBtn.addEventListener("pointerdown", function (e) { e.preventDefault(); if (mode === "run") jump(); });
+  jumpBtn.addEventListener("pointerup", cutJump);
   startBtn.addEventListener("click", function () { reset(); beep(880, 0.08); });
   whackStartBtn.addEventListener("click", function () { whackReset(); beep(880, 0.08); });
   tabRun.addEventListener("click", function () { setMode("run"); beep(660, 0.05); });
@@ -993,6 +1348,7 @@
   setMode("run");
 
   ready.then(function () {
+    renderBackdrop();
     drawIdle();
     requestAnimationFrame(function (t) { last = t; loop(t); });
   });
