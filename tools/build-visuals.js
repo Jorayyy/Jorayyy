@@ -252,9 +252,9 @@ const footer = `<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="50"
 </svg>
 `;
 
-fs.writeFileSync(path.join(assets, "hero.svg"), hero);
+fs.writeFileSync(path.join(assets, "hero-portal.svg"), hero);
 fs.writeFileSync(path.join(assets, "sprites-parade.svg"), parade);
 fs.writeFileSync(path.join(assets, "arcade-button.svg"), button);
 fs.writeFileSync(path.join(assets, "save-file.svg"), save);
 fs.writeFileSync(path.join(assets, "divider.svg"), footer);
-console.log("wrote hero.svg, sprites-parade.svg, arcade-button.svg, save-file.svg, divider.svg");
+console.log("wrote hero-portal.svg, sprites-parade.svg, arcade-button.svg, save-file.svg, divider.svg");
