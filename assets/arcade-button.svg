@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="120" viewBox="0 0 560 120" role="img" aria-label="Insert coin">
+  <defs>
+    <linearGradient id="neon" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#97ce4c"/>
+      <stop offset=".5" stop-color="#c6f27a"/>
+      <stop offset="1" stop-color="#b084eb"/>
+    </linearGradient>
+    <filter id="pulse" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="7" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect x="8" y="10" width="544" height="100" rx="18" fill="#97ce4c" opacity=".18" filter="url(#pulse)">
+    <animate attributeName="opacity" values=".08;.28;.08" dur="2.4s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="8" y="10" width="544" height="100" rx="18" fill="#081009"/>
+  <rect x="8" y="10" width="544" height="100" rx="18" fill="none" stroke="url(#neon)" stroke-width="2.5"/>
+  <rect x="14" y="16" width="532" height="88" rx="13" fill="none" stroke="#ffffff" stroke-opacity=".05"/>
+
+  <g transform="translate(58 60)">
+    <rect x="-19" y="-25" width="38" height="50" rx="7" fill="#101c12" stroke="url(#neon)" stroke-width="2"/>
+    <rect x="-11" y="-16" width="22" height="5" rx="2.5" fill="#0a120b" stroke="#4f9a2c"/>
+    <circle cx="0" cy="10" r="8" fill="none" stroke="#97ce4c" stroke-width="2">
+      <animate attributeName="r" values="7;9;7" dur="1.6s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="0" cy="10" r="2.5" fill="#eaffc9">
+      <animate attributeName="opacity" values=".4;1;.4" dur="1.6s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <text x="110" y="71" font-family="ui-monospace, 'Cascadia Mono', 'Courier New', monospace" font-size="33" font-weight="700" letter-spacing="3" fill="#f0e14a">INSERT COIN</text>
+
+  <g fill="#97ce4c" opacity=".9">
+    <rect x="432" y="55" width="9" height="9" rx="1">
+      <animate attributeName="opacity" values=".2;1;.2" dur="1.2s" begin="0s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="446" y="55" width="9" height="9" rx="1">
+      <animate attributeName="opacity" values=".2;1;.2" dur="1.2s" begin=".2s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="460" y="55" width="9" height="9" rx="1">
+      <animate attributeName="opacity" values=".2;1;.2" dur="1.2s" begin=".4s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <path d="M505 48 l24 12 -24 12 z" fill="#c6f27a">
+    <animate attributeName="opacity" values=".35;1;.35" dur="1.6s" repeatCount="indefinite"/>
+  </path>
+</svg>

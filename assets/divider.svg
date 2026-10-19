@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="50" viewBox="0 0 1000 50" role="img" aria-label="Divider">
+  <line x1="80" y1="25" x2="920" y2="25" stroke="#1f3626" stroke-width="1" stroke-dasharray="2 8"/>
+  <line x1="80" y1="25" x2="920" y2="25" stroke="#97ce4c" stroke-width="1" stroke-dasharray="2 8" opacity=".8">
+    <animate attributeName="stroke-dashoffset" from="0" to="-80" dur="4s" repeatCount="indefinite"/>
+  </line>
+  <circle cx="500" cy="25" r="4" fill="#97ce4c">
+    <animate attributeName="r" values="3;5;3" dur="2.4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values=".5;1;.5" dur="2.4s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="500" cy="25" r="10" fill="none" stroke="#97ce4c" stroke-opacity=".35">
+    <animate attributeName="r" values="7;15;7" dur="3.2s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-opacity" values=".35;0;.35" dur="3.2s" repeatCount="indefinite"/>
+  </circle>
+</svg>

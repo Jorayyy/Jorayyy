@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="120" viewBox="0 0 1000 120" role="img" aria-label="Character select">
+  <defs>
+    <linearGradient id="fade" x1="0" x2="1">
+      <stop offset="0" stop-color="#05090a" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#05090a" stop-opacity="0"/>
+      <stop offset="1" stop-color="#05090a" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+  </defs>
+  <rect width="1000" height="120" fill="#05090a" opacity="0"/>
+  <ellipse cx="500" cy="112" rx="420" ry="10" fill="#97ce4c" opacity=".06" filter="url(#soft)"/>
+  
+  <g transform="translate(20 12)">
+    <rect width="96" height="96" rx="16" fill="#0b1410" stroke="#21382a"/>
+    <rect x="1" y="1" width="94" height="94" rx="15" fill="none" stroke="#ffffff" stroke-opacity=".04"/>
+    <circle cx="48" cy="54" r="30" fill="#97ce4c" opacity=".06">
+      <animate attributeName="opacity" values=".03;.11;.03" dur="3.2s" begin="0.00s" repeatCount="indefinite"/>
+    </circle>
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="2.8s" begin="0.00s" repeatCount="indefinite"/>
+      <image href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACMSURBVDhPY0AHvILi/6FMothwABLM33zsP4gmhg3VhgAwSWIwhgGkaIZhFEOoasDNRcUEMU4DsCnGhXEaAGLjwwQNgAGYQmQxEICJ4TUAxAcBZAPQxXAaQCwmaECVvj4GRpYn2gXImr9+/wWmUTTDAD5DQLj/+G3sGpEBSAHIFmyYJM0g25AxbkMYGADnp/Ez1V0ASwAAAABJRU5ErkJggg==" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACMSURBVDhPY0AHvILi/6FMothwABLM33zsP4gmhg3VhgAwSWIwhgGkaIZhFEOoasDNRcUEMU4DsCnGhXEaAGLjwwQNgAGYQmQxEICJ4TUAxAcBZAPQxXAaQCwmaECVvj4GRpYn2gXImr9+/wWmUTTDAD5DQLj/+G3sGpEBSAHIFmyYJM0g25AxbkMYGADnp/Ez1V0ASwAAAABJRU5ErkJggg==" x="24" y="22" width="48" height="48" image-rendering="pixelated"/>
+    </g>
+  </g>
+  <g transform="translate(124 12)">
+    <rect width="96" height="96" rx="16" fill="#0b1410" stroke="#21382a"/>
+    <rect x="1" y="1" width="94" height="94" rx="15" fill="none" stroke="#ffffff" stroke-opacity=".04"/>
+    <circle cx="48" cy="54" r="30" fill="#97ce4c" opacity=".06">
+      <animate attributeName="opacity" values=".03;.11;.03" dur="3.2s" begin="0.22s" repeatCount="indefinite"/>
+    </circle>
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="2.8s" begin="0.18s" repeatCount="indefinite"/>
+      <image href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB/SURBVDhPY0AHvILi/7FhqDR+AFIYbaaAFRM0BJ9mGMZpCDGaYRirIVQ14OaiYpwYpyHEGgDCWA0BcbApxodxGgADyIqRAUwMqwEgAGKDALJmdDEUzSAAM4AUjGIINgOq9PVRMLo8QQNAGJdmECbKAHwYw4CTW/VJwlQygIEBAG4j0KtyE5TlAAAAAElFTkSuQmCC" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB/SURBVDhPY0AHvILi/7FhqDR+AFIYbaaAFRM0BJ9mGMZpCDGaYRirIVQ14OaiYpwYpyHEGgDCWA0BcbApxodxGgADyIqRAUwMqwEgAGKDALJmdDEUzSAAM4AUjGIINgOq9PVRMLo8QQNAGJdmECbKAHwYw4CTW/VJwlQygIEBAG4j0KtyE5TlAAAAAElFTkSuQmCC" x="24" y="22" width="48" height="48" image-rendering="pixelated"/>
+    </g>
+  </g>
+  <g transform="translate(228 12)">
+    <rect width="96" height="96" rx="16" fill="#0b1410" stroke="#21382a"/>
+    <rect x="1" y="1" width="94" height="94" rx="15" fill="none" stroke="#ffffff" stroke-opacity=".04"/>
+    <circle cx="48" cy="54" r="30" fill="#97ce4c" opacity=".06">
+      <animate attributeName="opacity" values=".03;.11;.03" dur="3.2s" begin="0.44s" repeatCount="indefinite"/>
+    </circle>
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="2.8s" begin="0.36s" repeatCount="indefinite"/>
+      <image href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB4SURBVDhPpYzRDYAgDERZwA+/HIOR3MMlnNaY+IM500sqYm3lJRco9F6yGMapIDLGQHFe85WwRJd/SboErTLjknQJWMapRXrGKetPuEQoICEB7/XsElhxCZacy7Yft+DNLaglLIcEbzEFwJJ8lkG3AGCxFflWpHQCFH74m5J4oSEAAAAASUVORK5CYII=" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB4SURBVDhPpYzRDYAgDERZwA+/HIOR3MMlnNaY+IM500sqYm3lJRco9F6yGMapIDLGQHFe85WwRJd/SboErTLjknQJWMapRXrGKetPuEQoICEB7/XsElhxCZacy7Yft+DNLaglLIcEbzEFwJJ8lkG3AGCxFflWpHQCFH74m5J4oSEAAAAASUVORK5CYII=" x="24" y="22" width="48" height="48" image-rendering="pixelated"/>
+    </g>
+  </g>
+  <g transform="translate(332 12)">
+    <rect width="96" height="96" rx="16" fill="#0b1410" stroke="#21382a"/>
+    <rect x="1" y="1" width="94" height="94" rx="15" fill="none" stroke="#ffffff" stroke-opacity=".04"/>
+    <circle cx="48" cy="54" r="30" fill="#97ce4c" opacity=".06">
+      <animate attributeName="opacity" values=".03;.11;.03" dur="3.2s" begin="0.66s" repeatCount="indefinite"/>
+    </circle>
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="2.8s" begin="0.54s" repeatCount="indefinite"/>
+      <image href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABuSURBVDhPY0AHvILi//FhqDJMAFNgv3IHXozVIGI0omMUQ6hmADJAVowMYGI4DQCxQQCmEKYYBGDqYGJQ7VT0wtfvv4jCeA0AsQnRtHMBKXiQGQACpBiCoRkGQBL4DILJQ5XjBjCF6BgqjQQYGADUZvEPez4mAgAAAABJRU5ErkJggg==" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABuSURBVDhPY0AHvILi//FhqDJMAFNgv3IHXozVIGI0omMUQ6hmADJAVowMYGI4DQCxQQCmEKYYBGDqYGJQ7VT0wtfvv4jCeA0AsQnRtHMBKXiQGQACpBiCoRkGQBL4DILJQ5XjBjCF6BgqjQQYGADUZvEPez4mAgAAAABJRU5ErkJggg==" x="24" y="22" width="48" height="48" image-rendering="pixelated"/>
+    </g>
+  </g>
+  <g transform="translate(436 12)">
+    <rect width="96" height="96" rx="16" fill="#0b1410" stroke="#21382a"/>
+    <rect x="1" y="1" width="94" height="94" rx="15" fill="none" stroke="#ffffff" stroke-opacity=".04"/>
+    <circle cx="48" cy="54" r="30" fill="#97ce4c" opacity=".06">
+      <animate attributeName="opacity" values=".03;.11;.03" dur="3.2s" begin="0.88s" repeatCount="indefinite"/>
+    </circle>
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="2.8s" begin="0.72s" repeatCount="indefinite"/>
+      <image href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACFSURBVDhPY0AHvILi/7FhqDR+AFIYbaaAFRM0BJ9mGMZpCDGaYRirIVQ14OaiYpwYpyHEGgDCWA0BcbApxodxGgADyAphGCYGE4dqRxgAAiA2CCArhGGYGEwcqp3KXoDhKn19DIwsR7QLsBkAwkQbgAtjGKBtFYqBT27VB2NsclQygIEBABnTr3L8vwLoAAAAAElFTkSuQmCC" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACFSURBVDhPY0AHvILi/7FhqDR+AFIYbaaAFRM0BJ9mGMZpCDGaYRirIVQ14OaiYpwYpyHEGgDCWA0BcbApxodxGgADyAphGCYGE4dqRxgAAiA2CCArhGGYGEwcqp3KXoDhKn19DIwsR7QLsBkAwkQbgAtjGKBtFYqBT27VB2NsclQygIEBABnTr3L8vwLoAAAAAElFTkSuQmCC" x="24" y="22" width="48" height="48" image-rendering="pixelated"/>
+    </g>
+  </g>
+  <g transform="translate(540 12)">
+    <rect width="96" height="96" rx="16" fill="#0b1410" stroke="#21382a"/>
+    <rect x="1" y="1" width="94" height="94" rx="15" fill="none" stroke="#ffffff" stroke-opacity=".04"/>
+    <circle cx="48" cy="54" r="30" fill="#97ce4c" opacity=".06">
+      <animate attributeName="opacity" values=".03;.11;.03" dur="3.2s" begin="1.10s" repeatCount="indefinite"/>
+    </circle>
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="2.8s" begin="0.90s" repeatCount="indefinite"/>
+      <image href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABkSURBVDhPY8AGeAXF/2PDUGn8AKSwe8o8rJigITDNJ7fqY8UEDaGaAfgwTgOI0QzDWA2BGQADyBpgAManrQHEYKINwGUobVwAAsQYglMzDIAUYDMIJg5Vhh/AFKNjqPSgAgwMAG0kTGjhLSLbAAAAAElFTkSuQmCC" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABkSURBVDhPY8AGeAXF/2PDUGn8AKSwe8o8rJigITDNJ7fqY8UEDaGaAfgwTgOI0QzDWA2BGQADyBpgAManrQHEYKINwGUobVwAAsQYglMzDIAUYDMIJg5Vhh/AFKNjqPSgAgwMAG0kTGjhLSLbAAAAAElFTkSuQmCC" x="24" y="22" width="48" height="48" image-rendering="pixelated"/>
+    </g>
+  </g>
+  <g transform="translate(644 12)">
+    <rect width="96" height="96" rx="16" fill="#0b1410" stroke="#21382a"/>
+    <rect x="1" y="1" width="94" height="94" rx="15" fill="none" stroke="#ffffff" stroke-opacity=".04"/>
+    <circle cx="48" cy="54" r="30" fill="#97ce4c" opacity=".06">
+      <animate attributeName="opacity" values=".03;.11;.03" dur="3.2s" begin="1.32s" repeatCount="indefinite"/>
+    </circle>
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="2.8s" begin="1.08s" repeatCount="indefinite"/>
+      <image href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABzSURBVDhPzYxLCoAwDER7AReuPIan9xAeqAhulEBCpyE/cOPAg6bJvOZlWbcH4e9aqNCve6IsscpCKonKQij5JKiUBVOCAnpnM9dGsoKeuTaCBxklwXnsE7j7qYDiSfDPLVO0wCIVRBLZ87kfOdTwGtLaCxVg1RhUtMARAAAAAElFTkSuQmCC" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABzSURBVDhPzYxLCoAwDER7AReuPIan9xAeqAhulEBCpyE/cOPAg6bJvOZlWbcH4e9aqNCve6IsscpCKonKQij5JKiUBVOCAnpnM9dGsoKeuTaCBxklwXnsE7j7qYDiSfDPLVO0wCIVRBLZ87kfOdTwGtLaCxVg1RhUtMARAAAAAElFTkSuQmCC" x="24" y="22" width="48" height="48" image-rendering="pixelated"/>
+    </g>
+  </g>
+  <g transform="translate(748 12)">
+    <rect width="96" height="96" rx="16" fill="#0b1410" stroke="#21382a"/>
+    <rect x="1" y="1" width="94" height="94" rx="15" fill="none" stroke="#ffffff" stroke-opacity=".04"/>
+    <circle cx="48" cy="54" r="30" fill="#97ce4c" opacity=".06">
+      <animate attributeName="opacity" values=".03;.11;.03" dur="3.2s" begin="1.54s" repeatCount="indefinite"/>
+    </circle>
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="2.8s" begin="1.26s" repeatCount="indefinite"/>
+      <image href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACFSURBVDhPrY5BCoAwDAT7AQ+ePPqEPsnv+QC/JoIXJZiFNmZjDi4stMl0aEGGcbqkeqWhnAy3ZQ4lIYMlA772HQCord3psycWyLST/CpAWtibhwLvR3ZOBdm6gv04Uw0FcgbIzlSQ+QU4KpCutbptmU4gsZKor8eILCIR9orzALTVdZNSbuK1kzUgnE4TAAAAAElFTkSuQmCC" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACFSURBVDhPrY5BCoAwDAT7AQ+ePPqEPsnv+QC/JoIXJZiFNmZjDi4stMl0aEGGcbqkeqWhnAy3ZQ4lIYMlA772HQCord3psycWyLST/CpAWtibhwLvR3ZOBdm6gv04Uw0FcgbIzlSQ+QU4KpCutbptmU4gsZKor8eILCIR9orzALTVdZNSbuK1kzUgnE4TAAAAAElFTkSuQmCC" x="24" y="22" width="48" height="48" image-rendering="pixelated"/>
+    </g>
+  </g>
+  <g transform="translate(852 12)">
+    <rect width="96" height="96" rx="16" fill="#0b1410" stroke="#21382a"/>
+    <rect x="1" y="1" width="94" height="94" rx="15" fill="none" stroke="#ffffff" stroke-opacity=".04"/>
+    <circle cx="48" cy="54" r="30" fill="#97ce4c" opacity=".06">
+      <animate attributeName="opacity" values=".03;.11;.03" dur="3.2s" begin="1.76s" repeatCount="indefinite"/>
+    </circle>
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="2.8s" begin="1.44s" repeatCount="indefinite"/>
+      <image href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB9SURBVDhPY8AGeAXF/2PDUGn8AKQw2kwBKyZoCD7NMIzXELINQNZ4c1ExXozVIKoYAJIE0TA2NowsD6Kh2hEGwACyJmSALI7TABAbBGAKQQBdDEUzCMAMIAWjGEIzA6r09cEYmxxBA2CacRlClAvwYQwDdi7tIglTyQAGBgARy+EYEfTnkQAAAABJRU5ErkJggg==" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB9SURBVDhPY8AGeAXF/2PDUGn8AKQw2kwBKyZoCD7NMIzXELINQNZ4c1ExXozVIKoYAJIE0TA2NowsD6Kh2hEGwACyJmSALI7TABAbBGAKQQBdDEUzCMAMIAWjGEIzA6r09cEYmxxBA2CacRlClAvwYQwDdi7tIglTyQAGBgARy+EYEfTnkQAAAABJRU5ErkJggg==" x="24" y="22" width="48" height="48" image-rendering="pixelated"/>
+    </g>
+  </g>
+</svg>
