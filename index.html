@@ -5,22 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>JORAYYY ARCADE — Portal Kingdom</title>
 <meta name="description" content="A tiny Rick and Morty themed arcade by Jorayyy. Pick a character, dodge Jerrys, collect portal fluid." />
-<link rel="icon" href="assets/sprites/rick.png" />
+<link rel="icon" href="assets/characters/icons8/arcade/rick-sanchez.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #070b08;
-    --panel: #0d1117;
-    --panel-2: #111a15;
-    --line: #1f3a24;
+    --bg: #05080a;
+    --panel: rgba(10, 18, 13, 0.72);
+    --line: rgba(198, 242, 122, 0.14);
+    --line-strong: rgba(198, 242, 122, 0.34);
+    --text: #e8f5dc;
+    --muted: #88a37c;
     --green: #97ce4c;
     --green-soft: #c6f27a;
     --yellow: #f0e14a;
     --purple: #b084eb;
     --blue: #58a6ff;
-    --ink: #0d1117;
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+    --sans: "Space Grotesk", system-ui, -apple-system, sans-serif;
   }
 
   * { box-sizing: border-box; }
@@ -29,128 +32,189 @@
 
   body {
     background:
-      radial-gradient(1200px 600px at 50% -10%, #123018 0%, transparent 60%),
+      radial-gradient(900px 520px at 50% -10%, rgba(151, 206, 76, 0.13), transparent 65%),
+      radial-gradient(700px 420px at 105% 105%, rgba(176, 132, 235, 0.07), transparent 70%),
       var(--bg);
-    color: var(--green-soft);
-    font-family: "Press Start 2P", ui-monospace, monospace;
-    font-size: 12px;
-    line-height: 1.9;
-    -webkit-font-smoothing: none;
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
 
-  a { color: var(--yellow); text-decoration: none; }
-  a:hover { color: var(--green); }
+  a { color: var(--green-soft); text-decoration: none; border-bottom: 1px solid rgba(198, 242, 122, 0.28); transition: color .18s, border-color .18s; }
+  a:hover { color: var(--yellow); border-color: var(--yellow); }
 
-  .scanlines {
-    position: fixed;
-    inset: 0;
+  .wrap { width: min(960px, 100% - 32px); margin: 0 auto; }
+
+  header.wrap { padding: 44px 0 6px; text-align: center; position: relative; }
+
+  .portal-badge {
+    display: block;
+    width: min(260px, 62vw);
+    height: auto;
+    margin: 0 auto 26px;
+    border-radius: 26px;
+    filter: drop-shadow(0 24px 50px rgba(151, 206, 76, 0.18));
+    animation: badge-float 9s ease-in-out infinite;
+  }
+
+  @keyframes badge-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  header.wrap::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -140px;
+    width: 540px;
+    height: 540px;
+    transform: translateX(-50%);
+    border-radius: 50%;
     pointer-events: none;
-    z-index: 99;
-    background: repeating-linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.25) 0px,
-      rgba(0, 0, 0, 0.25) 1px,
-      transparent 1px,
-      transparent 3px
-    );
-    mix-blend-mode: multiply;
-    opacity: 0.55;
-  }
-
-  .wrap {
-    width: min(980px, 100% - 24px);
-    margin: 0 auto;
-    padding: 24px 0 64px;
-  }
-
-  header {
-    text-align: center;
-    padding: 28px 12px 8px;
+    background: radial-gradient(circle, rgba(151, 206, 76, 0.12), transparent 62%);
   }
 
   h1 {
-    font-size: clamp(20px, 6vw, 44px);
-    margin: 0 0 12px;
-    color: var(--green);
-    text-shadow: 0 0 12px rgba(151, 206, 76, 0.6), 4px 4px 0 var(--ink);
-    letter-spacing: 2px;
+    position: relative;
+    margin: 0 0 16px;
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: clamp(30px, 6.4vw, 58px);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #f4ffe8;
+    text-shadow: 0 0 34px rgba(151, 206, 76, 0.4);
   }
 
-  .tagline { color: var(--yellow); font-size: 10px; }
-
-  .blink { animation: blink 1.1s steps(2, start) infinite; }
-  @keyframes blink { to { visibility: hidden; } }
+  .tagline {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
 
   .portal-dot {
     display: inline-block;
-    width: 10px; height: 10px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
     background: var(--green);
     box-shadow: 0 0 10px var(--green);
-    margin: 0 8px;
+    margin: 0 10px;
     vertical-align: middle;
   }
 
+  .blink { animation: blink 1.5s steps(1, end) infinite; }
+  @keyframes blink { 0%, 62% { opacity: 1; } 63%, 100% { opacity: 0.18; } }
+
+  main.wrap { padding: 30px 0 40px; }
+
   .panel {
-    background: linear-gradient(180deg, var(--panel-2), var(--panel));
-    border: 3px solid var(--line);
-    box-shadow: 0 0 0 3px var(--ink), 0 0 24px rgba(151, 206, 76, 0.15);
-    padding: 18px;
-    margin: 22px 0;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0) 42%),
+      var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 24px;
+    margin: 18px 0;
+    box-shadow: 0 24px 60px -34px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.04);
   }
 
   .panel > h2 {
-    margin: 0 0 16px;
-    font-size: 14px;
+    margin: 0 0 18px;
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
     color: var(--green);
-    text-shadow: 2px 2px 0 var(--ink);
   }
+
+  .panel > h2::before { content: "\25B8"; margin-right: 10px; color: var(--green-soft); }
 
   .roster {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));
+    gap: 12px;
   }
 
   .card {
-    background: var(--ink);
-    border: 3px solid var(--line);
-    padding: 8px 4px 6px;
+    position: relative;
+    background: rgba(8, 15, 11, 0.6);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 14px 8px 12px;
     cursor: pointer;
-    text-align: center;
-    color: var(--green-soft);
-    font-family: inherit;
-    font-size: 8px;
-    transition: transform .08s steps(2), border-color .1s, box-shadow .1s;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: transform .2s ease, border-color .2s, box-shadow .2s, color .2s, background .2s;
   }
 
   .card img {
     display: block;
-    margin: 0 auto 6px;
-    width: 56px;
-    height: 56px;
-    image-rendering: pixelated;
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 10px;
+    opacity: .92;
+    transition: opacity .2s, transform .2s;
   }
 
-  .card:hover { border-color: var(--green); transform: translateY(-2px); }
+  .card:hover { transform: translateY(-3px); border-color: var(--line-strong); color: var(--text); }
+  .card:hover img { opacity: 1; transform: scale(1.05); }
+
   .card[aria-pressed="true"] {
-    border-color: var(--yellow);
-    box-shadow: 0 0 0 3px rgba(240, 225, 74, 0.25), 0 0 18px rgba(240, 225, 74, 0.35);
-    color: var(--yellow);
+    color: var(--text);
+    border-color: var(--tint, var(--green));
+    background: linear-gradient(180deg, rgba(151, 206, 76, 0.1), rgba(8, 15, 11, 0.4));
+    box-shadow: 0 0 0 1px var(--tint, var(--green)), 0 16px 42px -20px var(--tint, var(--green));
   }
 
-  #data { margin-top: 16px; font-size: 10px; }
-  #data .name { color: var(--yellow); font-size: 12px; display: block; margin-bottom: 8px; }
-  #data .row { display: flex; gap: 10px; }
-  #data .row span:first-child { color: var(--green); min-width: 108px; }
-  #data .quote { color: var(--purple); margin-top: 10px; display: block; }
+  #data {
+    margin-top: 20px;
+    border-top: 1px solid var(--line);
+    padding-top: 16px;
+    font-size: 14px;
+  }
+
+  #data .name {
+    display: block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 12px;
+  }
+
+  #data .row { display: flex; gap: 16px; padding: 3px 0; }
+
+  #data .row span:first-child {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    min-width: 104px;
+    padding-top: 3px;
+  }
+
+  #data .quote { color: #cbb6ef; font-style: italic; }
 
   .stage {
     position: relative;
-    border: 3px solid var(--line);
-    background: #05080a;
-    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.9);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    overflow: hidden;
+    background: #04070a;
     line-height: 0;
+    box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.9), 0 24px 50px -34px rgba(0, 0, 0, 0.95);
   }
 
   canvas {
@@ -164,106 +228,125 @@
 
   .hud {
     position: absolute;
-    inset: 8px 10px auto 10px;
+    inset: 12px 16px auto 16px;
     display: flex;
     justify-content: space-between;
+    font-family: var(--mono);
     font-size: 9px;
-    color: var(--green-soft);
-    text-shadow: 2px 2px 0 var(--ink);
+    letter-spacing: 0.16em;
+    color: rgba(232, 245, 220, 0.55);
     pointer-events: none;
   }
 
-  .hud b { color: var(--yellow); }
+  .hud b { color: var(--green-soft); font-weight: 500; }
 
   .controls {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-top: 14px;
+    margin-top: 16px;
     align-items: center;
-    font-size: 9px;
   }
 
   button.btn {
-    font-family: inherit;
+    font-family: var(--mono);
     font-size: 9px;
-    color: var(--ink);
-    background: var(--green);
-    border: 3px solid var(--ink);
-    padding: 10px 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #06110a;
+    background: var(--green-soft);
+    border: 1px solid transparent;
+    padding: 11px 18px;
+    border-radius: 999px;
     cursor: pointer;
-    box-shadow: 3px 3px 0 #2a4a1c;
-    transition: transform .06s steps(2), box-shadow .06s;
+    box-shadow: 0 10px 26px -14px rgba(198, 242, 122, 0.7);
+    transition: transform .15s, box-shadow .2s, background .2s, color .2s, border-color .2s;
   }
 
-  button.btn:hover { transform: translate(1px, 1px); box-shadow: 2px 2px 0 #2a4a1c; }
-  button.btn.alt { background: var(--yellow); box-shadow: 3px 3px 0 #7a6f1c; }
-  button.btn.ghost { background: transparent; color: var(--green); border-color: var(--green); box-shadow: 3px 3px 0 #14300f; }
+  button.btn:hover { transform: translateY(-1px); box-shadow: 0 16px 34px -16px rgba(198, 242, 122, 0.85); }
+  button.btn.alt { background: var(--yellow); box-shadow: 0 10px 26px -14px rgba(240, 225, 74, 0.6); }
+  button.btn.ghost { background: transparent; color: var(--green-soft); border-color: var(--line-strong); box-shadow: none; }
+  button.btn.ghost:hover { background: var(--green-soft); color: #06110a; border-color: transparent; }
+  button.btn.active { background: rgba(198, 242, 122, 0.14); color: var(--green-soft); border-color: var(--green); box-shadow: none; }
 
-  .hint { color: #6b8f5b; font-size: 8px; }
+  .hint { font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; color: var(--muted); }
 
-  .tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 14px;
-  }
-
-  .tabs .btn.active {
-    background: var(--yellow);
-    color: var(--ink);
-  }
+  .tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
 
   table.scores {
     width: 100%;
     border-collapse: collapse;
-    font-size: 9px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
   }
 
   table.scores th, table.scores td {
     text-align: left;
-    padding: 8px 6px;
-    border-bottom: 1px dotted var(--line);
+    padding: 12px 8px;
+    border-bottom: 1px solid var(--line);
   }
 
-  table.scores th { color: var(--green); }
+  table.scores th { font-weight: 500; color: var(--muted); letter-spacing: 0.2em; }
   table.scores td:last-child, table.scores th:last-child { text-align: right; color: var(--yellow); }
 
-  #quoteBox { color: var(--purple); font-size: 10px; min-height: 44px; }
-  #quoteWho { display: block; margin-top: 8px; color: #6b8f5b; font-size: 8px; }
+  #quoteBox { font-size: 16px; color: #cbb6ef; font-style: italic; min-height: 48px; }
+  table.scores td[colspan] { text-align: center; color: var(--muted); font-style: italic; letter-spacing: 0.06em; }
+  #quoteBtn { margin-top: 16px; }
+
+  #quoteWho {
+    display: block;
+    margin-top: 10px;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
 
   footer {
     text-align: center;
-    font-size: 8px;
-    color: #4f6b45;
-    padding: 28px 12px 40px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    padding: 32px 0 56px;
   }
 
-  footer a { color: var(--green); }
+  footer a { color: var(--green-soft); }
 
   .toast {
     position: fixed;
     left: 50%;
-    bottom: 20px;
+    bottom: 24px;
     transform: translateX(-50%);
-    background: var(--ink);
-    border: 3px solid var(--green);
-    color: var(--green);
-    padding: 10px 14px;
-    font-size: 9px;
+    background: rgba(6, 12, 8, 0.96);
+    border: 1px solid var(--green);
+    border-radius: 999px;
+    color: var(--green-soft);
+    padding: 12px 20px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
     z-index: 100;
     opacity: 0;
     pointer-events: none;
-    transition: opacity .2s;
+    transition: opacity .25s;
   }
 
   .toast.show { opacity: 1; }
+
+  @media (max-width: 560px) {
+    .panel { padding: 18px; border-radius: 20px; }
+    h1 { letter-spacing: 0.1em; }
+    #data .row { flex-direction: column; gap: 2px; }
+  }
 </style>
 </head>
 <body>
-<div class="scanlines" aria-hidden="true"></div>
 
 <header class="wrap">
+  <img class="portal-badge" src="assets/hero-portal.svg" alt="" width="260" height="260" />
   <h1>JORAYYY ARCADE</h1>
   <div class="tagline"><span class="portal-dot"></span>PORTAL KINGDOM v2.0<span class="portal-dot"></span></div>
   <div class="tagline blink" style="margin-top:10px">INSERT COIN TO CONTINUE</div>
@@ -272,16 +355,16 @@
 <main class="wrap">
 
   <section class="panel">
-    <h2>&#9654; CHARACTER SELECT</h2>
+    <h2>CHARACTER SELECT</h2>
     <div class="roster" id="roster" role="group" aria-label="Select a character"></div>
     <div id="data" aria-live="polite"></div>
   </section>
 
   <section class="panel">
-    <h2>&#9654; GAME MODES</h2>
+    <h2>GAME MODES</h2>
     <div class="tabs">
-      <button class="btn" id="tabRun">&#127812; PORTAL KINGDOM</button>
-      <button class="btn ghost" id="tabWhack">&#129692; MEESEEKS WHACK</button>
+      <button class="btn" id="tabRun">PORTAL KINGDOM</button>
+      <button class="btn ghost" id="tabWhack">MEESEEKS WHACK</button>
     </div>
 
     <div id="stageRun">
@@ -294,9 +377,9 @@
         </div>
       </div>
       <div class="controls">
-        <button class="btn" id="startBtn">&#9654; START</button>
+        <button class="btn" id="startBtn">START</button>
         <button class="btn alt" id="jumpBtn">&#9650; JUMP</button>
-        <button class="btn ghost" id="muteBtn">&#128266; SOUND: ON</button>
+        <button class="btn ghost" id="muteBtn">SOUND: ON</button>
         <span class="hint">SPACE / &#8593; jump &middot; &#8592; &#8594; move &middot; P pause</span>
       </div>
     </div>
@@ -311,15 +394,15 @@
         </div>
       </div>
       <div class="controls">
-        <button class="btn" id="whackStartBtn">&#9654; START</button>
-        <button class="btn ghost" id="whackMuteBtn">&#128266; SOUND: ON</button>
-        <span class="hint">TAP the Meeseeks, never tap Rick &middot; keys 1-9 work too</span>
+        <button class="btn" id="whackStartBtn">START</button>
+        <button class="btn ghost" id="whackMuteBtn">SOUND: ON</button>
+        <span class="hint">TAP the Meeseeks, never tap Rick &middot; keys 1-6 work too</span>
       </div>
     </div>
   </section>
 
   <section class="panel">
-    <h2>&#9654; HIGH SCORES</h2>
+    <h2>HIGH SCORES</h2>
     <table class="scores">
       <thead>
         <tr><th>RANK</th><th>CHARACTER</th><th>SCORE</th></tr>
@@ -329,10 +412,10 @@
   </section>
 
   <section class="panel">
-    <h2>&#9654; RANDOM TRANSMISSION</h2>
+    <h2>RANDOM TRANSMISSION</h2>
     <div id="quoteBox"></div>
     <span id="quoteWho"></span>
-    <button class="btn ghost" id="quoteBtn">&#127760; PICK A QUOTE</button>
+    <button class="btn ghost" id="quoteBtn">PICK A QUOTE</button>
   </section>
 
 </main>
@@ -349,15 +432,12 @@
   "use strict";
 
   var SPRITES = {
-    "rick":          { label: "RICK",       role: "Backend Architect",   spec: "Laravel, PHP, database design",            quote: "Wubba lubba dub dub. Usually that means a broken migration." },
-    "morty":         { label: "MORTY",      role: "Frontend Apprentice", spec: "TypeScript, React, Next.js, Tailwind",     quote: "Aw geez, Rick, that is like 400 components." },
-    "pickle-rick":   { label: "PICKLE",     role: "Solo Shipper",        spec: "Shipping MVPs with zero budget",           quote: "I am a pickle! The original argument for shipping with less." },
-    "meeseeks":      { label: "MEESEEKS",   role: "Does Everything",     spec: "Bugs, tests, PRs, then poof",              quote: "I am Mr. Meeseeks, look at me! I am helping!" },
-    "evil-morty":    { label: "EVIL MORTY", role: "The Refactorer",      spec: "Deleting duplicate repos",                 quote: "I am not your enemy. I am just the guy who archives hris_v3." },
-    "butter-robot":  { label: "BUTTER",     role: "AI and Boilerplate",  spec: "Scaffolding, CRUD, holding the butter",    quote: "What is my purpose? You pass the props. Oh my god." },
-    "birdperson":    { label: "BIRDPERSON", role: "Architecture Wisdom", spec: "Clean architecture, sane schemas",         quote: "I once had a codebase like that." },
-    "squanchy":      { label: "SQUANCHY",   role: "DevOps Party",        spec: "Docker, CI/CD, green pipelines",           quote: "I am squanching here! It means deploying." },
-    "jerry":         { label: "JERRY",      role: "Legacy Codebase",     spec: "The old repo you still depend on",         quote: "Nothing wrong with a little Jerry energy." }
+    "rick":    { label: "RICK",    role: "Backend Architect",   spec: "Laravel, PHP, database design",           quote: "Wubba lubba dub dub. Usually that means a broken migration.", art: "assets/characters/icons8/arcade/rick-sanchez.svg", tint: "#a7dbe8" },
+    "morty":   { label: "MORTY",   role: "Frontend Apprentice", spec: "TypeScript, React, Next.js, Tailwind",    quote: "Aw geez, Rick, that is like 400 components.", art: "assets/characters/icons8/arcade/morty-smith.svg", tint: "#f0e14a" },
+    "jerry":   { label: "JERRY",   role: "Legacy Codebase",     spec: "The old repo you still depend on",        quote: "Nothing wrong with a little Jerry energy.", art: "assets/characters/icons8/arcade/jerry-smith.svg", tint: "#93a7bd" },
+    "beth":    { label: "BETH",    role: "Systems Surgeon",     spec: "Refactors, migrations, precision fixes",  quote: "Horse surgeon, then production surgeon. Same nerves.", art: "assets/characters/icons8/arcade/beth-smith.svg", tint: "#f2d06b" },
+    "summer":  { label: "SUMMER",  role: "Growth and Ops",      spec: "Automation, analytics, dashboards",       quote: "I am not a kid. I run the whole analytics stack.", art: "assets/characters/icons8/arcade/summer-smith.svg", tint: "#e2764f" },
+    "plumbus": { label: "PLUMBUS", role: "The Utility",         spec: "Does everything, nobody knows how",       quote: "Everyone has a plumbus in their stack. Nobody asks why.", art: "assets/characters/icons8/arcade/plambus.svg", tint: "#c9a06b" }
   };
 
   var QUOTES = [
@@ -368,7 +448,10 @@
     ["In a hundred years, no one will read your commit messages. So make them good.", "Birdperson"],
     ["What is my purpose? You close the ticket.", "Butter Robot"],
     ["Existence is pain, but deadlines are pain squared.", "Mr. Meeseeks"],
-    ["I am pickle Riiiick. Version control is my pickle jar.", "Pickle Rick"]
+    ["I am pickle Riiiick. Version control is my pickle jar.", "Pickle Rick"],
+    ["I do surgery on prod at 2 AM. It is fine.", "Beth"],
+    ["I am not a kid, I run the whole analytics stack.", "Summer"],
+    ["Everyone has a plumbus in their stack. Nobody asks why.", "Plumbus"]
   ];
 
   var ROSTER = Object.keys(SPRITES);
@@ -405,20 +488,97 @@
   var GROUND = 224;
   var SCALE = 3;
 
+  var PIXEL_SPRITES = ["rick", "morty", "jerry", "pickle-rick", "meeseeks", "evil-morty", "butter-robot", "birdperson", "squanchy"];
   var images = {};
-  ROSTER.forEach(function (key) {
+  PIXEL_SPRITES.forEach(function (key) {
     var img = new Image();
     img.src = "assets/sprites/" + key + ".png";
     images[key] = img;
   });
 
   var selected = "rick";
+
   var bgCanvas = document.createElement("canvas");
 
+  var artImages = {};
+  ROSTER.forEach(function (key) {
+    var img = new Image();
+    img.src = SPRITES[key].art;
+    artImages[key] = img;
+  });
+
   function drawSprite(target, key, x, y, scale) {
+    if (key === "meeseeks") { drawMeeseeks(target, x, y, scale); return; }
+    if (key === "butter-robot") { drawButter(target, x, y, scale); return; }
+    var art = artImages[key];
+    if (art && art.complete && art.naturalWidth) {
+      target.drawImage(art, Math.round(x), Math.round(y), 16 * scale, 16 * scale);
+      return;
+    }
     var img = images[key];
     if (!img || !img.complete || !img.naturalWidth) return;
     target.drawImage(img, Math.round(x), Math.round(y), 16 * scale, 16 * scale);
+  }
+
+  function drawMeeseeks(t, x, y, scale) {
+    var u = 16 * scale;
+    var cx = x + u / 2;
+    var cy = y + u / 2;
+    var s = u / 32;
+    t.save();
+    t.strokeStyle = "rgba(159, 230, 224, 0.9)";
+    t.fillStyle = "rgba(159, 230, 224, 0.06)";
+    t.lineWidth = 1.6 * s;
+    t.beginPath();
+    t.moveTo(cx - 12 * s, cy + 3 * s);
+    t.quadraticCurveTo(cx - 13 * s, cy - 13 * s, cx - 4 * s, cy - 14 * s);
+    t.quadraticCurveTo(cx - 6 * s, cy - 20 * s, cx - 1 * s, cy - 22 * s);
+    t.quadraticCurveTo(cx + 2 * s, cy - 16 * s, cx + 3 * s, cy - 14 * s);
+    t.quadraticCurveTo(cx + 13 * s, cy - 13 * s, cx + 12 * s, cy + 3 * s);
+    t.quadraticCurveTo(cx + 10 * s, cy + 10 * s, cx + 5 * s, cy + 11 * s);
+    t.lineTo(cx - 5 * s, cy + 11 * s);
+    t.quadraticCurveTo(cx - 10 * s, cy + 10 * s, cx - 12 * s, cy + 3 * s);
+    t.closePath();
+    t.fill();
+    t.stroke();
+    t.beginPath();
+    t.arc(cx - 4.5 * s, cy - 3 * s, 2.6 * s, 0, Math.PI * 2);
+    t.arc(cx + 4.5 * s, cy - 3 * s, 2.6 * s, 0, Math.PI * 2);
+    t.stroke();
+    t.beginPath();
+    t.arc(cx, cy + 4 * s, 3.4 * s, 0.15 * Math.PI, 0.85 * Math.PI);
+    t.stroke();
+    t.restore();
+  }
+
+  function drawButter(t, x, y, scale) {
+    var u = 16 * scale;
+    var cx = x + u / 2;
+    var cy = y + u / 2;
+    var s = u / 32;
+    t.save();
+    t.strokeStyle = "rgba(242, 208, 107, 0.9)";
+    t.fillStyle = "rgba(242, 208, 107, 0.05)";
+    t.lineWidth = 1.6 * s;
+    t.beginPath();
+    t.roundRect(cx - 10 * s, cy - 4 * s, 20 * s, 13 * s, 3 * s);
+    t.fill();
+    t.stroke();
+    t.beginPath();
+    t.moveTo(cx, cy - 4 * s);
+    t.lineTo(cx, cy - 12 * s);
+    t.moveTo(cx - 3 * s, cy - 12 * s);
+    t.lineTo(cx + 3 * s, cy - 12 * s);
+    t.moveTo(cx - 6 * s, cy + 9 * s);
+    t.lineTo(cx - 6 * s, cy + 13 * s);
+    t.moveTo(cx + 6 * s, cy + 9 * s);
+    t.lineTo(cx + 6 * s, cy + 13 * s);
+    t.stroke();
+    t.beginPath();
+    t.arc(cx - 4 * s, cy + 1 * s, 1.8 * s, 0, Math.PI * 2);
+    t.arc(cx + 4 * s, cy + 1 * s, 1.8 * s, 0, Math.PI * 2);
+    t.stroke();
+    t.restore();
   }
 
   function select(key) {
@@ -440,7 +600,8 @@
     btn.type = "button";
     btn.dataset.key = key;
     btn.setAttribute("aria-pressed", "false");
-    btn.innerHTML = '<img src="assets/sprites/' + key + '.svg" alt="' + SPRITES[key].label + '" /><span>' + SPRITES[key].label + "</span>";
+    btn.style.setProperty("--tint", SPRITES[key].tint);
+    btn.innerHTML = '<img src="' + SPRITES[key].art + '" alt="" width="52" height="52" /><span>' + SPRITES[key].label + "</span>";
     btn.addEventListener("click", function () { select(key); beep(660, 0.05); });
     rosterEl.appendChild(btn);
   });
@@ -449,15 +610,17 @@
     render();
   }
 
-  function stamp(text, cx, cy) {
-    ctx.save();
-    ctx.font = "10px 'Press Start 2P', monospace";
-    ctx.textAlign = "center";
-    ctx.fillStyle = "#0d1117";
-    ctx.fillText(text, cx + 2, cy + 2);
-    ctx.fillStyle = "#97ce4c";
-    ctx.fillText(text, cx, cy);
-    ctx.restore();
+  function stamp(text, cx, cy, target, size, spacing) {
+    var g = target || ctx;
+    g.save();
+    g.font = "500 " + (size || 12) + "px 'IBM Plex Mono', monospace";
+    g.letterSpacing = (spacing || 4) + "px";
+    g.textAlign = "center";
+    g.fillStyle = "rgba(151, 206, 76, 0.14)";
+    g.fillText(text, cx + 1, cy + 1);
+    g.fillStyle = "#c6f27a";
+    g.fillText(text, cx, cy);
+    g.restore();
   }
 
   function renderBackdrop() {
@@ -465,9 +628,9 @@
     var b = bgCanvas.getContext("2d");
     b.imageSmoothingEnabled = false;
     var sky = b.createLinearGradient(0, 0, 0, GROUND);
-    sky.addColorStop(0, "#0c1130");
-    sky.addColorStop(0.55, "#1b2a5e");
-    sky.addColorStop(1, "#3a2b63");
+    sky.addColorStop(0, "#04080a");
+    sky.addColorStop(0.6, "#071310");
+    sky.addColorStop(1, "#0a1c14");
     b.fillStyle = sky;
     b.fillRect(0, 0, W, GROUND);
 
@@ -475,7 +638,7 @@
       var x = (i * 97) % W;
       var y = (i * 53) % (GROUND - 60);
       var big = i % 7 === 0;
-      b.fillStyle = big ? "#f0e14a" : "rgba(198,214,255,0.6)";
+      b.fillStyle = big ? "rgba(240, 225, 74, 0.75)" : "rgba(198, 242, 122, 0.3)";
       b.fillRect(x, y, big ? 2 : 1, big ? 2 : 1);
     }
 
@@ -486,15 +649,18 @@
     b.fillStyle = portal;
     b.fillRect(W - 175, -20, 215, 215);
 
-    var hills = [[86, -10, "#241c48"], [150, 130, "#2b2154"], [112, 300, "#241c48"], [72, 410, "#312660"]];
+    var hills = [[86, -10], [150, 130], [112, 300], [72, 410]];
+    b.lineWidth = 1;
     for (var h = 0; h < hills.length; h++) {
-      b.fillStyle = hills[h][2];
       b.beginPath();
       b.arc(hills[h][1], GROUND + 8, hills[h][0], Math.PI, 0);
+      b.fillStyle = "rgba(151, 206, 76, 0.035)";
       b.fill();
+      b.strokeStyle = "rgba(198, 242, 122, 0.12)";
+      b.stroke();
     }
-    b.fillStyle = "#1a1440";
-    b.fillRect(0, GROUND - 10, W, 10);
+    b.fillStyle = "rgba(198, 242, 122, 0.18)";
+    b.fillRect(0, GROUND - 1, W, 1);
   }
 
   var audio = null;
@@ -869,18 +1035,23 @@
   }
 
   function drawClouds() {
-    ctx.fillStyle = "rgba(190,180,255,0.2)";
+    ctx.save();
+    ctx.strokeStyle = "rgba(198, 242, 122, 0.16)";
+    ctx.lineWidth = 1;
     for (var i = 0; i < clouds.length; i++) {
       var c = clouds[i];
       var span = W + 180;
       var cx = Math.round(((c.x - tick * 12 * c.s) % span + span) % span - 90);
       var cy = c.y;
-      ctx.fillRect(cx, cy + 2, 44, 8);
-      ctx.fillRect(cx + 6, cy - 4, 12, 8);
-      ctx.fillRect(cx + 17, cy - 9, 14, 13);
-      ctx.fillRect(cx + 30, cy - 3, 10, 7);
-      ctx.fillRect(cx + 3, cy + 10, 36, 4);
+      ctx.beginPath();
+      ctx.arc(cx + 9, cy + 5, 6, Math.PI * 0.9, Math.PI * 1.9);
+      ctx.arc(cx + 20, cy + 1, 9, Math.PI, Math.PI * 2);
+      ctx.arc(cx + 32, cy + 5, 6, Math.PI * 1.1, Math.PI * 2.1);
+      ctx.moveTo(cx + 3, cy + 9);
+      ctx.lineTo(cx + 38, cy + 9);
+      ctx.stroke();
     }
+    ctx.restore();
   }
 
   function drawGround() {
@@ -890,20 +1061,26 @@
         if (x + TILE > gaps[i].x && x < gaps[i].x + gaps[i].w) { cut = true; break; }
       }
       if (cut) continue;
-      ctx.fillStyle = "#6fcf4a";
-      ctx.fillRect(x, GROUND, TILE, 5);
-      ctx.fillStyle = "#4ea336";
-      ctx.fillRect(x, GROUND + 5, TILE, 3);
-      ctx.fillStyle = "#b5642f";
-      ctx.fillRect(x, GROUND + 8, TILE, H - GROUND - 8);
-      ctx.fillStyle = "#8a4622";
-      ctx.fillRect(x, GROUND + 8, TILE, 2);
-      ctx.fillStyle = "rgba(86,36,12,0.55)";
-      ctx.fillRect(x + 2, GROUND + 18, TILE - 4, 2);
-      ctx.fillRect(x + 2, GROUND + 30, TILE - 4, 2);
-      ctx.fillRect(x + 11, GROUND + 9, 2, 9);
-      ctx.fillRect(x + 3, GROUND + 20, 2, 10);
-      ctx.fillRect(x + 19, GROUND + 20, 2, 10);
+      ctx.fillStyle = "#07100c";
+      ctx.fillRect(x, GROUND, TILE, H - GROUND);
+      ctx.fillStyle = "rgba(198, 242, 122, 0.16)";
+      ctx.fillRect(x, GROUND + 1, TILE, 1);
+      ctx.fillStyle = "#97ce4c";
+      ctx.fillRect(x, GROUND, TILE, 1);
+      ctx.strokeStyle = "rgba(198, 242, 122, 0.06)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(x, GROUND + 13);
+      ctx.lineTo(x + TILE, GROUND + 13);
+      ctx.moveTo(x, GROUND + 27);
+      ctx.lineTo(x + TILE, GROUND + 27);
+      ctx.moveTo(x + TILE / 2, GROUND + 13);
+      ctx.lineTo(x + TILE / 2, GROUND + 27);
+      ctx.moveTo(x + TILE / 4, GROUND + 27);
+      ctx.lineTo(x + TILE / 4, H);
+      ctx.moveTo(x + (TILE * 3) / 4, GROUND + 27);
+      ctx.lineTo(x + (TILE * 3) / 4, H);
+      ctx.stroke();
     }
   }
 
@@ -911,78 +1088,85 @@
     var y = Math.round(b.y - Math.sin(b.bump * Math.PI) * 5);
     var x = Math.round(b.x);
     if (b.kind === "pipe") {
-      ctx.fillStyle = "#0f4d20";
+      ctx.fillStyle = "#08150f";
       ctx.fillRect(x - 3, y + 6, b.w + 6, b.h - 6);
-      ctx.fillStyle = "#2f9e44";
-      ctx.fillRect(x, y + 8, b.w, b.h - 8);
-      ctx.fillStyle = "#1b6b2c";
-      ctx.fillRect(x + b.w - 9, y + 8, 9, b.h - 8);
-      ctx.fillStyle = "#7ee27a";
-      ctx.fillRect(x + 4, y + 10, 4, b.h - 12);
-      ctx.fillStyle = "#0f4d20";
+      ctx.strokeStyle = "rgba(151, 206, 76, 0.5)";
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(x - 3.5, y + 6.5, b.w + 6, b.h - 7);
+      ctx.beginPath();
+      ctx.moveTo(x + 4, y + 10);
+      ctx.lineTo(x + 4, y + b.h - 4);
+      ctx.strokeStyle = "rgba(198, 242, 122, 0.35)";
+      ctx.stroke();
+      ctx.fillStyle = "#08150f";
       ctx.fillRect(x - 5, y, b.w + 10, 12);
-      ctx.fillStyle = "#2f9e44";
-      ctx.fillRect(x - 3, y + 2, b.w + 6, 8);
-      ctx.fillStyle = "#7ee27a";
-      ctx.fillRect(x - 1, y + 4, b.w - 2, 2);
+      ctx.strokeStyle = "rgba(151, 206, 76, 0.5)";
+      ctx.strokeRect(x - 5.5, y + 0.5, b.w + 10, 11);
       return;
     }
     if (b.kind === "question") {
-      ctx.fillStyle = "#8a5a00";
+      ctx.fillStyle = "#0b130e";
       ctx.fillRect(x, y, TILE, TILE);
-      ctx.fillStyle = "#f0b429";
-      ctx.fillRect(x + 2, y + 2, TILE - 4, TILE - 4);
+      ctx.strokeStyle = "rgba(240, 225, 74, 0.8)";
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(x + 1, y + 1, TILE - 2, TILE - 2);
+      ctx.fillStyle = "rgba(240, 225, 74, 0.55)";
+      ctx.fillRect(x + 3, y + 3, 2, 2);
+      ctx.fillRect(x + TILE - 5, y + 3, 2, 2);
+      ctx.fillRect(x + 3, y + TILE - 5, 2, 2);
+      ctx.fillRect(x + TILE - 5, y + TILE - 5, 2, 2);
       ctx.fillStyle = "#ffd35e";
-      ctx.fillRect(x + 3, y + 3, TILE - 6, 3);
-      ctx.fillStyle = "#8a5a00";
-      ctx.fillRect(x + 3, y + 3, 3, 3);
-      ctx.fillRect(x + TILE - 6, y + 3, 3, 3);
-      ctx.fillRect(x + 3, y + TILE - 6, 3, 3);
-      ctx.fillRect(x + TILE - 6, y + TILE - 6, 3, 3);
-      ctx.fillStyle = "#fff2b0";
-      ctx.font = "12px 'Press Start 2P', monospace";
+      ctx.font = "500 12px 'IBM Plex Mono', monospace";
       ctx.textAlign = "center";
       ctx.fillText("?", x + TILE / 2, y + TILE - 7);
       return;
     }
     if (b.kind === "used") {
-      ctx.fillStyle = "#3d3427";
+      ctx.fillStyle = "#0a0f0c";
       ctx.fillRect(x, y, TILE, TILE);
-      ctx.fillStyle = "#5c5040";
-      ctx.fillRect(x + 2, y + 2, TILE - 4, TILE - 4);
-      ctx.fillStyle = "#3d3427";
-      ctx.fillRect(x + 3, y + 3, 3, 3);
-      ctx.fillRect(x + TILE - 6, y + 3, 3, 3);
-      ctx.fillRect(x + 3, y + TILE - 6, 3, 3);
-      ctx.fillRect(x + TILE - 6, y + TILE - 6, 3, 3);
+      ctx.strokeStyle = "rgba(198, 242, 122, 0.12)";
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(x + 1, y + 1, TILE - 2, TILE - 2);
       return;
     }
-    ctx.fillStyle = "#7a3f1c";
+    ctx.fillStyle = "#0e0a07";
     ctx.fillRect(x, y, TILE, TILE);
-    ctx.fillStyle = "#c06a32";
-    ctx.fillRect(x + 1, y + 1, TILE - 2, TILE - 2);
-    ctx.fillStyle = "#e08a4a";
-    ctx.fillRect(x + 2, y + 2, TILE - 4, 3);
-    ctx.fillStyle = "#7a3f1c";
-    ctx.fillRect(x + 1, y + 11, TILE - 2, 2);
-    ctx.fillRect(x + 11, y + 1, 2, 10);
-    ctx.fillRect(x + 2, y + 13, 2, 10);
-    ctx.fillRect(x + 20, y + 13, 2, 10);
+    ctx.strokeStyle = "rgba(240, 225, 74, 0.32)";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(x + 1, y + 1, TILE - 2, TILE - 2);
+    ctx.beginPath();
+    ctx.moveTo(x + 1, y + 11);
+    ctx.lineTo(x + TILE - 1, y + 11);
+    ctx.moveTo(x + 1, y + 13);
+    ctx.lineTo(x + TILE - 1, y + 13);
+    ctx.moveTo(x + 11, y + 1);
+    ctx.lineTo(x + 11, y + 11);
+    ctx.moveTo(x + 11, y + 13);
+    ctx.lineTo(x + 11, y + TILE - 1);
+    ctx.moveTo(x + 2, y + 13);
+    ctx.lineTo(x + 2, y + TILE - 1);
+    ctx.strokeStyle = "rgba(240, 225, 74, 0.16)";
+    ctx.stroke();
   }
 
   function drawCoinShape(x, y, r) {
     var spin = Math.abs(Math.cos(tick * 6 + (r || 0)));
     var w = 3 + spin * 8;
-    ctx.fillStyle = "#a9861d";
+    ctx.save();
     ctx.beginPath();
     ctx.ellipse(x, y, w + 1, 10, 0, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(240, 225, 74, 0.1)";
     ctx.fill();
-    ctx.fillStyle = "#f0e14a";
+    ctx.strokeStyle = "rgba(240, 225, 74, 0.75)";
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
     ctx.beginPath();
     ctx.ellipse(x, y, Math.max(1, w), 8, 0, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = "#fff7b8";
-    ctx.fillRect(Math.round(x) - 1, Math.round(y) - 4, 2, 6);
+    ctx.strokeStyle = "rgba(255, 247, 184, 0.35)";
+    ctx.stroke();
+    ctx.fillStyle = "rgba(255, 247, 184, 0.8)";
+    ctx.fillRect(Math.round(x) - 1, Math.round(y) - 3, 1, 6);
+    ctx.restore();
   }
 
   function drawCoin(c) {
@@ -990,19 +1174,31 @@
   }
 
   function drawEnemy(e) {
-    var img = images.jerry;
-    if (!img || !img.complete || !img.naturalWidth) return;
+    var art = artImages.jerry;
+    if (!art || !art.complete || !art.naturalWidth) return;
     if (e.dead) {
-      ctx.drawImage(img, Math.round(e.x - 7), Math.round(e.y + e.h - 16), 48, 16);
+      ctx.globalAlpha = 0.45;
+      ctx.drawImage(art, Math.round(e.x - 6), Math.round(e.y + e.h - 30), 40, 40);
+      ctx.globalAlpha = 1;
     } else {
       var bob = Math.round(Math.sin(tick * 9 + e.seed) * 1.5);
-      ctx.drawImage(img, Math.round(e.x - 7), Math.round(e.y - 4 + bob), 48, 48);
+      ctx.drawImage(art, Math.round(e.x - 6), Math.round(e.y - 2 + bob), 40, 40);
     }
   }
 
   function drawPlayer() {
     if (invuln > 0 && Math.floor(tick * 14) % 2 === 0) return;
     var bob = player.onGround ? Math.round(Math.sin(tick * 16) * 1) : 0;
+    var u = 16 * SCALE;
+    ctx.save();
+    ctx.strokeStyle = "rgba(198, 242, 122, 0.28)";
+    ctx.lineWidth = 1;
+    ctx.setLineDash([3, 5]);
+    ctx.lineDashOffset = -tick * 14;
+    ctx.beginPath();
+    ctx.arc(player.x - 9 + u / 2, player.y - 4 + bob + u / 2, 30, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
     drawSprite(ctx, selected, player.x - 9, player.y - 4 + bob, SCALE);
   }
 
@@ -1174,10 +1370,13 @@
 
     for (var i = 0; i < whack.holes.length; i++) {
       var c = holeCenter(i);
-      wctx.fillStyle = "#0b120c";
-      wctx.fillRect(Math.round(c.x - 27), Math.round(c.y - 22), 54, 46);
-      wctx.fillStyle = "#1d3520";
-      wctx.fillRect(Math.round(c.x - 27), Math.round(c.y + 24), 54, 6);
+      wctx.fillStyle = "rgba(6, 12, 8, 0.85)";
+      wctx.beginPath();
+      wctx.ellipse(c.x, c.y + 8, 30, 16, 0, 0, Math.PI * 2);
+      wctx.fill();
+      wctx.strokeStyle = "rgba(198, 242, 122, 0.22)";
+      wctx.lineWidth = 1.4;
+      wctx.stroke();
 
       var h = whack.holes[i];
       if (!h) continue;
@@ -1191,23 +1390,24 @@
     }
 
     whack.fx.forEach(function (f) {
-      wctx.font = "8px 'Press Start 2P', monospace";
+      wctx.font = "500 11px 'IBM Plex Mono', monospace";
+      wctx.letterSpacing = "1px";
       wctx.textAlign = "center";
-      wctx.fillStyle = "#0d1117";
+      wctx.fillStyle = "rgba(6, 12, 8, 0.85)";
       wctx.fillText(f.text, Math.round(f.x) + 1, Math.round(f.y) + 1);
       wctx.fillStyle = f.color;
       wctx.fillText(f.text, Math.round(f.x), Math.round(f.y));
     });
 
     if (whack.state === "idle") {
-      stamp("PRESS START", W / 2, 34);
-      stamp("MEESEEKS +1  BUTTER +2  RICK -3", W / 2, 254);
+      stamp("PRESS START", W / 2, 34, wctx);
+      stamp("MEESEEKS +1  BUTTER +2  RICK -3", W / 2, 254, wctx, 10, 2.5);
     } else if (whack.state === "over") {
       wctx.fillStyle = "rgba(7,11,8,0.75)";
       wctx.fillRect(0, 0, W, H);
-      stamp("TIME!", W / 2, 96);
-      stamp("SCORE " + whack.score, W / 2, 126);
-      stamp("PRESS START TO RETRY", W / 2, 156);
+      stamp("TIME!", W / 2, 96, wctx);
+      stamp("SCORE " + whack.score, W / 2, 126, wctx);
+      stamp("PRESS START TO RETRY", W / 2, 156, wctx);
     }
   }
 
@@ -1333,7 +1533,7 @@
 
   var ready = Promise.all(ROSTER.map(function (key) {
     return new Promise(function (resolve) {
-      var img = images[key];
+      var img = artImages[key];
       if (img.complete) return resolve();
       img.onload = resolve;
       img.onerror = resolve;
@@ -1353,7 +1553,7 @@
     requestAnimationFrame(function (t) { last = t; loop(t); });
   });
 
-  setTimeout(function () { toast("Tip: press 1-9 to swap characters"); }, 2600);
+  setTimeout(function () { toast("Tip: press 1-6 to swap characters"); }, 2600);
 })();
 </script>
 </body>

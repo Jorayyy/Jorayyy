@@ -342,6 +342,15 @@ const footer = `<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="56"
 </svg>
 `;
 
+const arcadeDir = path.join(charactersDir, "icons8", "arcade");
+fs.mkdirSync(arcadeDir, { recursive: true });
+CREW.forEach((c) => {
+  fs.writeFileSync(
+    path.join(arcadeDir, path.basename(c.file)),
+    `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">${crewArt(c.file, c.color)}</svg>\n`
+  );
+});
+
 fs.writeFileSync(path.join(assets, "hero-portal.svg"), hero);
 fs.writeFileSync(path.join(assets, "sprites-parade.svg"), parade);
 fs.writeFileSync(path.join(assets, "arcade-button.svg"), button);
