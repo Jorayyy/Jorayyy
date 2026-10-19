@@ -13,6 +13,8 @@
 ![COINS](https://img.shields.io/badge/COINS-INFINITE-F0E14A?style=for-the-badge&labelColor=0D1117)
 ![SECTOR](https://img.shields.io/badge/SECTOR-TACLOBAN%2C_PH-B084EB?style=for-the-badge&labelColor=0D1117)
 
+[![ARCADE](https://img.shields.io/badge/%E2%96%B6_INSERT_COIN-play_the_arcade-F0E14A?style=for-the-badge&labelColor=0D1117)](https://jorayyy.github.io/Jorayyy/)
+
 </div>
 
 > *"Nobody exists on purpose. Nobody belongs anywhere. Everybody's gonna die. **Come build something.**"*
@@ -45,6 +47,156 @@ I'm a full-stack developer from Tacloban, Philippines. I ship production systems
 | 04 | **QR** — QR-based scanning and attendance | TypeScript | [▶ PLAY](https://github.com/Jorayyy/qr) |
 
 <sub>Every repo above ships with screenshots and setup steps in its README.</sub>
+
+---
+
+## 🕹️ CHARACTER SELECT
+
+<sub>Nine locals, every single pixel drawn by hand. Click a name to open their file.</sub>
+
+<div align="center">
+
+| <img src="assets/sprites/rick.svg" width="80" alt="Rick Sanchez pixel sprite" /> | <img src="assets/sprites/morty.svg" width="80" alt="Morty Smith pixel sprite" /> | <img src="assets/sprites/pickle-rick.svg" width="80" alt="Pickle Rick pixel sprite" /> | <img src="assets/sprites/meeseeks.svg" width="80" alt="Mr. Meeseeks pixel sprite" /> | <img src="assets/sprites/evil-morty.svg" width="80" alt="Evil Morty pixel sprite" /> | <img src="assets/sprites/butter-robot.svg" width="80" alt="Butter Robot pixel sprite" /> | <img src="assets/sprites/birdperson.svg" width="80" alt="Birdperson pixel sprite" /> | <img src="assets/sprites/squanchy.svg" width="80" alt="Squanchy pixel sprite" /> | <img src="assets/sprites/jerry.svg" width="80" alt="Jerry Smith pixel sprite" /> |
+| :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+| **RICK** | **MORTY** | **PICKLE** | **MEESEEKS** | **EVIL MORTY** | **BUTTER** | **BIRDPERSON** | **SQUANCHY** | **JERRY** |
+
+</div>
+
+<details>
+<summary><strong>🧪 RICK SANCHEZ</strong> — <em>Backend Architect</em> · <code>LVL 90</code></summary>
+
+<br/>
+
+| | |
+| :--- | :--- |
+| **Specialty** | Laravel, PHP, database design, unhinged refactors that somehow work |
+| **Signature move** | Ships a whole HRIS in a weekend, then writes the docs at 3am |
+| **Quote** | *"Wubba lubba dub dub"* — which for me usually means a broken migration |
+| **Weakness** | Overengineering things that were fine already |
+
+</details>
+
+<details>
+<summary><strong>🟡 MORTY SMITH</strong> — <em>Frontend Apprentice</em> · <code>LVL 62</code></summary>
+
+<br/>
+
+| | |
+| :--- | :--- |
+| **Specialty** | TypeScript, React, Next.js, Tailwind, and blind faith in the type checker |
+| **Signature move** | Turns a Figma file into a real product, one "aw geez" at a time |
+| **Quote** | *"Aw geez, Rick, that's like 400 components"* |
+| **Weakness** | Vertically centering a div — still, in 2026 |
+
+</details>
+
+<details>
+<summary><strong>🥒 PICKLE RICK</strong> — <em>Solo Shipping Machine</em> · <code>LVL 85</code></summary>
+
+<br/>
+
+| | |
+| :--- | :--- |
+| **Specialty** | Solo MVPs with no budget, no team, and rat limbs for arms |
+| **Signature move** | "I turned myself into a product, Morty. I'm product Riiick!" |
+| **Quote** | *"I'm a pickle!"* — the original argument for shipping with less |
+| **Weakness** | Cannot reach the keyboard without assistance |
+
+</details>
+
+<details>
+<summary><strong>👋 MR. MEESEEKS</strong> — <em>Will Help With Anything</em> · <code>LVL 77</code></summary>
+
+<br/>
+
+| | |
+| :--- | :--- |
+| **Specialty** | Fixing bugs, reviewing PRs, writing tests, then ceasing to exist |
+| **Signature move** | "Ooh yeah, can do!" followed by immediate and total task completion |
+| **Quote** | *"I'm Mr. Meeseeks, look at me! I'm helping!"* |
+| **Weakness** | Exists only until the task is done. Keep me busy or I go weird. |
+
+</details>
+
+<details>
+<summary><strong>🕶️ EVIL MORTY</strong> — <em>The Refactorer</em> · <code>LVL 99</code></summary>
+
+<br/>
+
+| | |
+| :--- | :--- |
+| **Specialty** | Deleting duplicate repos, collapsing five HRIS builds into one that works |
+| **Signature move** | The Citadel of Ricks has fewer databases than my old repo list |
+| **Quote** | *"I'm not your enemy. I'm just the guy who archives hris_v3."* |
+| **Weakness** | Genuinely believes every legacy project deserves a rewrite |
+
+</details>
+
+<details>
+<summary><strong>🧈 BUTTER ROBOT</strong> — <em>AI & Boilerplate</em> · <code>LVL 12</code></summary>
+
+<br/>
+
+| | |
+| :--- | :--- |
+| **Specialty** | Generating CRUD, scaffolding auth, holding the butter |
+| **Signature move** | "What is my purpose?" — *"You pass the props."* — "Oh my god." |
+| **Quote** | *"Yeah, welcome to the club, pal."* |
+| **Weakness** | Existential dread every time a build fails |
+
+</details>
+
+<details>
+<summary><strong>🦅 BIRDPERSON</strong> — <em>Architecture Wisdom</em> · <code>LVL 88</code></summary>
+
+<br/>
+
+| | |
+| :--- | :--- |
+| **Specialty** | Clean architecture, sensible schemas, telling you to normalize that table |
+| **Signature move** | Speaks only in hard-won lessons from systems that shipped |
+| **Quote** | *"I once had a codebase like that."* |
+| **Weakness** | Nobody listens until production goes down |
+
+</details>
+
+<details>
+<summary><strong>😺 SQUANCHY</strong> — <em>DevOps Party</em> · <code>LVL 74</code></summary>
+
+<br/>
+
+| | |
+| :--- | :--- |
+| **Specialty** | Docker, CI/CD, deployments, and squanching the pipeline green |
+| **Signature move** | Zero-downtime deploy at 2am, celebratory squanching after |
+| **Quote** | *"I'm squanching here!"* (it means deploying) |
+| **Weakness** | Squanches so hard the build queue backs up |
+
+</details>
+
+<details>
+<summary><strong>🧢 JERRY SMITH</strong> — <em>Legacy Codebase</em> · <code>LVL 41</code></summary>
+
+<br/>
+
+| | |
+| :--- | :--- |
+| **Specialty** | Being the old repo you kind of still depend on. Currently learning. |
+| **Signature move** | "Nothing wrong with a little Jerry energy" — but this Jerry ships now |
+| **Quote** | *"I'm on the learning arc, Morty."* |
+| **Weakness** | hris_v3, hris_v4, hrweb, hrweb_v2, clean-hris... we don't talk about those |
+
+</details>
+
+> [!CAUTION]
+> Nine sprites, zero sleep. Every pixel above was drawn by hand in a 16x16 grid, then generated to SVG.
+
+<details>
+<summary>🔓 Spoiler: what "Wubba lubba dub dub" actually means</summary>
+
+It means *"I am in great pain, please help me."* Usually when someone pushes straight to `main` on a Friday.
+
+</details>
 
 ---
 

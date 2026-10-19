@@ -1,0 +1,4 @@
+# The snake workflow needs the `workflow` token scope to push from this machine.
+# It is added through the GitHub web UI instead:
+# https://github.com/Jorayyy/Jorayyy/new/main/.github/workflows
+.github/workflows/
