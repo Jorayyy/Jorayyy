@@ -202,6 +202,18 @@
 
   .hint { color: #6b8f5b; font-size: 8px; }
 
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .tabs .btn.active {
+    background: var(--yellow);
+    color: var(--ink);
+  }
+
   table.scores {
     width: 100%;
     border-collapse: collapse;
@@ -266,20 +278,43 @@
   </section>
 
   <section class="panel">
-    <h2>&#9654; PORTAL RUN</h2>
-    <div class="stage">
-      <canvas id="game" width="480" height="270" aria-label="Portal Run game canvas"></canvas>
-      <div class="hud">
-        <div>SCORE <b id="hudScore">0</b></div>
-        <div>BEST <b id="hudBest">0</b></div>
-        <div>SPEED <b id="hudSpeed">1.0x</b></div>
+    <h2>&#9654; GAME MODES</h2>
+    <div class="tabs">
+      <button class="btn" id="tabRun">&#127939; PORTAL RUN</button>
+      <button class="btn ghost" id="tabWhack">&#129692; MEESEEKS WHACK</button>
+    </div>
+
+    <div id="stageRun">
+      <div class="stage">
+        <canvas id="game" width="480" height="270" aria-label="Portal Run game canvas"></canvas>
+        <div class="hud">
+          <div>SCORE <b id="hudScore">0</b></div>
+          <div>BEST <b id="hudBest">0</b></div>
+          <div>SPEED <b id="hudSpeed">1.0x</b></div>
+        </div>
+      </div>
+      <div class="controls">
+        <button class="btn" id="startBtn">&#9654; START</button>
+        <button class="btn alt" id="jumpBtn">&#9650; JUMP</button>
+        <button class="btn ghost" id="muteBtn">&#128266; SOUND: ON</button>
+        <span class="hint">SPACE / &#8593; / TAP to jump &middot; P to pause</span>
       </div>
     </div>
-    <div class="controls">
-      <button class="btn" id="startBtn">&#9654; START</button>
-      <button class="btn alt" id="jumpBtn">&#9650; JUMP</button>
-      <button class="btn ghost" id="muteBtn">&#128266; SOUND: ON</button>
-      <span class="hint">SPACE / &#8593; / TAP to jump &middot; P to pause</span>
+
+    <div id="stageWhack" hidden>
+      <div class="stage">
+        <canvas id="whack" width="480" height="270" aria-label="Meeseeks Whack game canvas"></canvas>
+        <div class="hud">
+          <div>SCORE <b id="whackScore">0</b></div>
+          <div>TIME <b id="whackTime">30</b></div>
+          <div>BEST <b id="whackBest">0</b></div>
+        </div>
+      </div>
+      <div class="controls">
+        <button class="btn" id="whackStartBtn">&#9654; START</button>
+        <button class="btn ghost" id="whackMuteBtn">&#128266; SOUND: ON</button>
+        <span class="hint">TAP the Meeseeks, never tap Rick &middot; keys 1-9 work too</span>
+      </div>
     </div>
   </section>
 
@@ -352,6 +387,18 @@
   var jumpBtn = document.getElementById("jumpBtn");
   var muteBtn = document.getElementById("muteBtn");
   var quoteBtn = document.getElementById("quoteBtn");
+  var tabRun = document.getElementById("tabRun");
+  var tabWhack = document.getElementById("tabWhack");
+  var stageRun = document.getElementById("stageRun");
+  var stageWhack = document.getElementById("stageWhack");
+  var whackCanvas = document.getElementById("whack");
+  var wctx = whackCanvas.getContext("2d");
+  var whackScoreEl = document.getElementById("whackScore");
+  var whackTimeEl = document.getElementById("whackTime");
+  var whackBestEl = document.getElementById("whackBest");
+  var whackStartBtn = document.getElementById("whackStartBtn");
+  var whackMuteBtn = document.getElementById("whackMuteBtn");
+  var mode = "run";
 
   var W = canvas.width;
   var H = canvas.height;
@@ -652,9 +699,197 @@
   function loop(now) {
     var dt = Math.min(0.05, (now - last) / 1000 || 0);
     last = now;
-    if (state === "running") update(dt);
-    render();
+    if (mode === "run") {
+      if (state === "running") update(dt);
+      render();
+    } else {
+      if (whack.state === "running") whackUpdate(dt);
+      whackRender();
+    }
     requestAnimationFrame(loop);
+  }
+
+  /* ---------- meeseeks whack ---------- */
+
+  var HOLE_COLS = 3;
+  var HOLE_ROWS = 3;
+  var whack = {
+    state: "idle",
+    score: 0,
+    time: 30,
+    best: Number(localStorage.getItem("jorayyy-whack-best") || 0),
+    holes: new Array(9).fill(null),
+    spawnTimer: 0,
+    spawnEvery: 0.8,
+    popFor: 1.15,
+    tick: 0,
+    fx: []
+  };
+
+  function holeCenter(i) {
+    var col = i % HOLE_COLS;
+    var row = Math.floor(i / HOLE_COLS);
+    var cellW = W / HOLE_COLS;
+    var cellH = (GROUND + 20) / HOLE_ROWS;
+    return { x: col * cellW + cellW / 2, y: row * cellH + cellH / 2 + 4 };
+  }
+
+  function whackReset() {
+    whack.state = "running";
+    whack.score = 0;
+    whack.time = 30;
+    whack.holes = new Array(9).fill(null);
+    whack.spawnTimer = 0.25;
+    whack.spawnEvery = 0.8;
+    whack.popFor = 1.15;
+    whack.tick = 0;
+    whack.fx = [];
+    whackScoreEl.textContent = "0";
+    whackTimeEl.textContent = "30";
+  }
+
+  function whackSpawn() {
+    var free = [];
+    for (var i = 0; i < whack.holes.length; i++) {
+      if (!whack.holes[i]) free.push(i);
+    }
+    if (!free.length) return;
+    var idx = free[Math.floor(Math.random() * free.length)];
+    var roll = Math.random();
+    var type = roll < 0.62 ? "meeseeks" : (roll < 0.84 ? "butter-robot" : "rick");
+    whack.holes[idx] = { type: type, life: whack.popFor };
+  }
+
+  function whackFx(at, text, color) {
+    whack.fx.push({ x: at.x, y: at.y, text: text, color: color, life: 0.85 });
+  }
+
+  function whackHit(i) {
+    if (whack.state !== "running") { whackReset(); beep(880, 0.08); return; }
+    if (i < 0 || i > 8) return;
+    var hole = whack.holes[i];
+    var at = holeCenter(i);
+    if (!hole) {
+      whackFx(at, "miss", "#6b8f5b");
+      return;
+    }
+    if (hole.type === "rick") {
+      whack.score = Math.max(0, whack.score - 3);
+      whackFx(at, "RICK! -3", "#d64545");
+      beep(120, 0.25, "sawtooth");
+    } else {
+      var gain = hole.type === "butter-robot" ? 2 : 1;
+      whack.score += gain;
+      whackFx(at, "+" + gain, hole.type === "butter-robot" ? "#f0e14a" : "#97ce4c");
+      beep(hole.type === "butter-robot" ? 1200 : 900, 0.06);
+    }
+    whack.holes[i] = null;
+    whackScoreEl.textContent = String(whack.score);
+  }
+
+  function whackEnd() {
+    whack.state = "over";
+    if (whack.score > whack.best) {
+      whack.best = whack.score;
+      localStorage.setItem("jorayyy-whack-best", String(whack.best));
+    }
+    whackBestEl.textContent = String(whack.best);
+    beep(180, 0.4, "triangle");
+  }
+
+  function whackUpdate(dt) {
+    whack.tick += dt;
+    whack.time -= dt;
+    whackTimeEl.textContent = String(Math.max(0, Math.ceil(whack.time)));
+    whack.spawnEvery = Math.max(0.36, 0.85 - whack.tick * 0.018);
+    whack.popFor = Math.max(0.5, 1.15 - whack.tick * 0.02);
+
+    whack.spawnTimer -= dt;
+    if (whack.spawnTimer <= 0) {
+      whackSpawn();
+      whack.spawnTimer = whack.spawnEvery;
+    }
+
+    for (var i = 0; i < whack.holes.length; i++) {
+      var h = whack.holes[i];
+      if (!h) continue;
+      h.life -= dt;
+      if (h.life <= 0) {
+        if (h.type !== "rick") whackFx(holeCenter(i), "poof", "#3f6b33");
+        whack.holes[i] = null;
+      }
+    }
+
+    whack.fx.forEach(function (f) { f.life -= dt; f.y -= 26 * dt; });
+    whack.fx = whack.fx.filter(function (f) { return f.life > 0; });
+
+    if (whack.time <= 0) { whack.time = 0; whackEnd(); }
+  }
+
+  function whackRender() {
+    wctx.imageSmoothingEnabled = false;
+    wctx.drawImage(bgCanvas, 0, 0);
+
+    for (var i = 0; i < whack.holes.length; i++) {
+      var c = holeCenter(i);
+      wctx.fillStyle = "#0b120c";
+      wctx.fillRect(Math.round(c.x - 27), Math.round(c.y - 22), 54, 46);
+      wctx.fillStyle = "#1d3520";
+      wctx.fillRect(Math.round(c.x - 27), Math.round(c.y + 24), 54, 6);
+
+      var h = whack.holes[i];
+      if (!h) continue;
+      var progress = 1 - h.life / whack.popFor;
+      var rise = Math.min(1, progress / 0.18);
+      var y = c.y - 16 - rise * 6;
+      wctx.save();
+      wctx.globalAlpha = h.life < 0.25 ? h.life / 0.25 : 1;
+      drawSprite(wctx, h.type, c.x - 16, y, 2);
+      wctx.restore();
+    }
+
+    whack.fx.forEach(function (f) {
+      wctx.font = "8px 'Press Start 2P', monospace";
+      wctx.textAlign = "center";
+      wctx.fillStyle = "#0d1117";
+      wctx.fillText(f.text, Math.round(f.x) + 1, Math.round(f.y) + 1);
+      wctx.fillStyle = f.color;
+      wctx.fillText(f.text, Math.round(f.x), Math.round(f.y));
+    });
+
+    if (whack.state === "idle") {
+      stamp("PRESS START", W / 2, 34);
+      stamp("MEESEEKS +1  BUTTER +2  RICK -3", W / 2, 254);
+    } else if (whack.state === "over") {
+      wctx.fillStyle = "rgba(7,11,8,0.75)";
+      wctx.fillRect(0, 0, W, H);
+      stamp("TIME!", W / 2, 96);
+      stamp("SCORE " + whack.score, W / 2, 126);
+      stamp("PRESS START TO RETRY", W / 2, 156);
+    }
+  }
+
+  function whackPointer(event) {
+    if (mode !== "whack") return;
+    event.preventDefault();
+    if (whack.state !== "running") { whackReset(); beep(880, 0.08); return; }
+    var rect = whackCanvas.getBoundingClientRect();
+    var x = (event.clientX - rect.left) * (W / rect.width);
+    var y = (event.clientY - rect.top) * (H / rect.height);
+    var col = Math.floor(x / (W / HOLE_COLS));
+    var row = Math.floor(y / ((GROUND + 20) / HOLE_ROWS));
+    if (col < 0 || col >= HOLE_COLS || row < 0 || row >= HOLE_ROWS) return;
+    whackHit(row * HOLE_COLS + col);
+  }
+
+  function setMode(next) {
+    mode = next;
+    stageRun.hidden = next !== "run";
+    stageWhack.hidden = next !== "whack";
+    tabRun.classList.toggle("active", next === "run");
+    tabRun.classList.toggle("ghost", next !== "run");
+    tabWhack.classList.toggle("active", next === "whack");
+    tabWhack.classList.toggle("ghost", next !== "whack");
   }
 
   /* ---------- high score table ---------- */
@@ -707,28 +942,37 @@
   document.addEventListener("keydown", function (e) {
     if (["Space", "ArrowUp", "KeyW"].indexOf(e.code) >= 0) {
       e.preventDefault();
-      jump();
+      if (mode === "run") jump();
+      else if (whack.state !== "running") { whackReset(); beep(880, 0.08); }
     }
-    if (e.code === "KeyP" && (state === "running" || state === "paused")) {
+    if (e.code === "KeyP" && mode === "run" && (state === "running" || state === "paused")) {
       state = state === "running" ? "paused" : "running";
     }
     if (e.code === "KeyM") { toggleMute(); }
     if (["Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6", "Digit7", "Digit8", "Digit9"].indexOf(e.code) >= 0) {
       var idx = Number(e.code.replace("Digit", "")) - 1;
-      if (ROSTER[idx]) select(ROSTER[idx]);
+      if (mode === "whack") whackHit(idx);
+      else if (ROSTER[idx]) select(ROSTER[idx]);
     }
   });
 
   canvas.addEventListener("pointerdown", function (e) { e.preventDefault(); jump(); });
+  whackCanvas.addEventListener("pointerdown", whackPointer);
   jumpBtn.addEventListener("click", jump);
   startBtn.addEventListener("click", function () { reset(); beep(880, 0.08); });
+  whackStartBtn.addEventListener("click", function () { whackReset(); beep(880, 0.08); });
+  tabRun.addEventListener("click", function () { setMode("run"); beep(660, 0.05); });
+  tabWhack.addEventListener("click", function () { setMode("whack"); beep(660, 0.05); });
   quoteBtn.addEventListener("click", nextQuote);
 
   function toggleMute() {
     muted = !muted;
-    muteBtn.innerHTML = muted ? "&#128263; SOUND: OFF" : "&#128266; SOUND: ON";
+    var label = muted ? "&#128263; SOUND: OFF" : "&#128266; SOUND: ON";
+    muteBtn.innerHTML = label;
+    whackMuteBtn.innerHTML = label;
   }
   muteBtn.addEventListener("click", toggleMute);
+  whackMuteBtn.addEventListener("click", toggleMute);
 
   /* ---------- boot ---------- */
 
@@ -742,9 +986,11 @@
   }));
 
   hudBest.textContent = String(best);
+  whackBestEl.textContent = String(whack.best);
   renderScores();
   nextQuote();
   select("rick");
+  setMode("run");
 
   ready.then(function () {
     drawIdle();
