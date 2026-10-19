@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/hero.svg" width="100%" alt="Jorayyy" />
+<img src="assets/hero.svg" width="340" alt="Rick's portal" />
 
 <a href="https://jorayyy.github.io/Jorayyy/"><img src="assets/sprites-parade.svg" width="100%" alt="Character select" /></a>
 

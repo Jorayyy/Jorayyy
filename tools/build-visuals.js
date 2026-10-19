@@ -28,98 +28,110 @@ function rand() {
   return seed / 2147483648;
 }
 
-const stars = Array.from({ length: 54 }, (_, i) => {
-  const x = Math.round(rand() * 960) + 20;
-  const y = Math.round(rand() * 190) + 20;
+const stars = Array.from({ length: 46 }, (_, i) => {
+  const x = Math.round(rand() * 470) + 25;
+  const y = Math.round(rand() * 470) + 25;
   const s = i % 9 === 0 ? 2 : 1;
   const fill = i % 8 === 0 ? "#f0e14a" : i % 3 === 0 ? "#b084eb" : "#cfe8b8";
   const begin = (rand() * 4).toFixed(2);
-  return `<rect x="${x}" y="${y}" width="${s}" height="${s}" fill="${fill}" opacity=".5"><animate attributeName="opacity" values=".15;.85;.15" dur="${(2 + rand() * 3).toFixed(1)}s" begin="${begin}s" repeatCount="indefinite"/></rect>`;
+  return `<rect x="${x}" y="${y}" width="${s}" height="${s}" fill="${fill}" opacity=".5"><animate attributeName="opacity" values=".12;.8;.12" dur="${(2 + rand() * 3).toFixed(1)}s" begin="${begin}s" repeatCount="indefinite"/></rect>`;
 }).join("\n    ");
 
-const hero = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="300" viewBox="0 0 1000 300" role="img" aria-label="Jorayyy">
+const hero = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="520" height="520" viewBox="0 0 520 520" role="img" aria-label="Rick's portal">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#05090a"/>
-      <stop offset=".55" stop-color="#0a1710"/>
-      <stop offset="1" stop-color="#05090a"/>
-    </linearGradient>
-    <linearGradient id="name" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#eaffc9"/>
-      <stop offset=".45" stop-color="#97ce4c"/>
-      <stop offset="1" stop-color="#4f9a2c"/>
-    </linearGradient>
-    <radialGradient id="core" cx="50%" cy="50%" r="50%">
-      <stop offset="0" stop-color="#eaffc9" stop-opacity=".35"/>
-      <stop offset=".5" stop-color="#97ce4c" stop-opacity=".12"/>
-      <stop offset="1" stop-color="#97ce4c" stop-opacity="0"/>
+    <radialGradient id="bg" cx="50%" cy="45%" r="75%">
+      <stop offset="0" stop-color="#0b1a10"/>
+      <stop offset=".55" stop-color="#050c08"/>
+      <stop offset="1" stop-color="#030605"/>
     </radialGradient>
-    <radialGradient id="vignette" cx="50%" cy="42%" r="70%">
-      <stop offset=".55" stop-color="#000" stop-opacity="0"/>
-      <stop offset="1" stop-color="#000" stop-opacity=".55"/>
+    <radialGradient id="portal" cx="50%" cy="46%" r="52%">
+      <stop offset="0" stop-color="#f6ffdf" stop-opacity=".95"/>
+      <stop offset=".18" stop-color="#d6ff96" stop-opacity=".88"/>
+      <stop offset=".38" stop-color="#aee260" stop-opacity=".9"/>
+      <stop offset=".62" stop-color="#77b83c" stop-opacity=".78"/>
+      <stop offset=".84" stop-color="#417d23" stop-opacity=".42"/>
+      <stop offset="1" stop-color="#2c5c17" stop-opacity=".06"/>
     </radialGradient>
-    <linearGradient id="scan" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#97ce4c" stop-opacity="0"/>
-      <stop offset=".5" stop-color="#97ce4c" stop-opacity=".16"/>
-      <stop offset="1" stop-color="#97ce4c" stop-opacity="0"/>
-    </linearGradient>
+    <radialGradient id="rim" cx="50%" cy="50%" r="50%">
+      <stop offset=".7" stop-color="#d9ff9e" stop-opacity="0"/>
+      <stop offset=".9" stop-color="#d9ff9e" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#f6ffdf" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" cx="50%" cy="46%" r="72%">
+      <stop offset=".5" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity=".6"/>
+    </radialGradient>
     <pattern id="lines" width="4" height="4" patternUnits="userSpaceOnUse">
-      <rect width="4" height="2" fill="#000" opacity=".16"/>
+      <rect width="4" height="2" fill="#000" opacity=".14"/>
     </pattern>
-    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="6" result="b"/>
-      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    <filter id="warp" x="-30%" y="-30%" width="160%" height="160%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.014 0.018" numOctaves="3" seed="9" result="n">
+        <animate attributeName="baseFrequency" values="0.013 0.017;0.023 0.027;0.013 0.017" dur="11s" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="32" xChannelSelector="R" yChannelSelector="G"/>
     </filter>
-    <clipPath id="card"><rect x="1" y="1" width="998" height="298" rx="20"/></clipPath>
+    <filter id="swirl" x="-40%" y="-40%" width="180%" height="180%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03 0.026" numOctaves="2" seed="23" result="n">
+        <animate attributeName="baseFrequency" values="0.026 0.03;0.038 0.022;0.026 0.03" dur="8s" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="26" xChannelSelector="R" yChannelSelector="G"/>
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+    <filter id="halo" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="22"/>
+    </filter>
+    <clipPath id="card"><rect x="1" y="1" width="518" height="518" rx="26"/></clipPath>
   </defs>
 
   <g clip-path="url(#card)">
-    <rect width="1000" height="300" fill="url(#bg)"/>
+    <rect width="520" height="520" fill="url(#bg)"/>
     ${stars}
 
-    <g opacity=".85">
-      <circle cx="500" cy="150" r="230" fill="url(#core)">
-        <animate attributeName="opacity" values=".5;.95;.5" dur="6s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="500" cy="150" r="232" fill="none" stroke="#97ce4c" stroke-opacity=".16" stroke-width="1.5" stroke-dasharray="2 12">
-        <animateTransform attributeName="transform" type="rotate" from="0 500 150" to="360 500 150" dur="60s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="500" cy="150" r="196" fill="none" stroke="#b084eb" stroke-opacity=".14" stroke-width="1" stroke-dasharray="1 9">
-        <animateTransform attributeName="transform" type="rotate" from="360 500 150" to="0 500 150" dur="44s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="500" cy="150" r="160" fill="none" stroke="#97ce4c" stroke-opacity=".1" stroke-width="8"/>
-      <circle cx="500" cy="150" r="246" fill="none" stroke="#97ce4c" stroke-opacity=".35" stroke-width="2" stroke-dasharray="1 40">
-        <animateTransform attributeName="transform" type="rotate" from="0 500 150" to="360 500 150" dur="24s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="500" cy="150" r="246" fill="none" stroke="#f0e14a" stroke-opacity=".6" stroke-width="2" stroke-dasharray="2 90">
-        <animateTransform attributeName="transform" type="rotate" from="0 500 150" to="-360 500 150" dur="36s" repeatCount="indefinite"/>
-      </circle>
+    <ellipse cx="260" cy="264" rx="192" ry="192" fill="#8fd945" opacity=".2" filter="url(#halo)">
+      <animate attributeName="opacity" values=".13;.28;.13" dur="5.4s" repeatCount="indefinite"/>
+    </ellipse>
+
+    <g filter="url(#warp)">
+      <circle cx="260" cy="260" r="171" fill="url(#portal)"/>
+      <circle cx="260" cy="260" r="171" fill="none" stroke="#f6ffdf" stroke-opacity=".8" stroke-width="3.5"/>
+      <circle cx="260" cy="260" r="165" fill="none" stroke="#ffffff" stroke-opacity=".3" stroke-width="1.4"/>
+    </g>
+
+    <g filter="url(#swirl)" opacity=".8">
       <g>
-        <animateTransform attributeName="transform" type="rotate" from="0 500 150" to="360 500 150" dur="18s" repeatCount="indefinite"/>
-        <circle cx="500" cy="-96" r="3" fill="#c6f27a">
-          <animate attributeName="opacity" values="1;.2;1" dur="2s" repeatCount="indefinite"/>
-        </circle>
+        <animateTransform attributeName="transform" type="rotate" from="0 260 260" to="360 260 260" dur="26s" repeatCount="indefinite"/>
+        <path d="M262 116 C 336 130, 396 198, 380 282 C 366 350, 306 398, 242 400" fill="none" stroke="#ffffff" stroke-opacity=".55" stroke-width="12"/>
+        <path d="M142 296 C 158 218, 224 148, 322 138" fill="none" stroke="#d9ff9e" stroke-opacity=".45" stroke-width="10"/>
+      </g>
+      <g>
+        <animateTransform attributeName="transform" type="rotate" from="360 260 260" to="0 260 260" dur="34s" repeatCount="indefinite"/>
+        <path d="M180 190 C 246 122, 352 132, 398 210" fill="none" stroke="#f6ffdf" stroke-opacity=".33" stroke-width="16"/>
       </g>
     </g>
 
-    <text x="504" y="188" text-anchor="middle" font-family="${FONT}" font-size="96" font-weight="700" letter-spacing="12" fill="#000" opacity=".6">JORAYYY</text>
-    <text x="500" y="180" text-anchor="middle" font-family="${FONT}" font-size="96" font-weight="700" letter-spacing="12" fill="url(#name)" stroke="#06130b" stroke-width="9" paint-order="stroke" filter="url(#glow)">JORAYYY</text>
+    <g>
+      <animateTransform attributeName="transform" type="rotate" from="0 260 260" to="-360 260 260" dur="19s" repeatCount="indefinite"/>
+      <ellipse cx="260" cy="114" rx="27" ry="9" fill="#f6ffdf" opacity=".4" filter="url(#soft)">
+        <animate attributeName="opacity" values=".15;.6;.15" dur="3.4s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse cx="260" cy="406" rx="20" ry="7" fill="#d9ff9e" opacity=".28" filter="url(#soft)">
+        <animate attributeName="opacity" values=".1;.45;.1" dur="4.1s" repeatCount="indefinite"/>
+      </ellipse>
+    </g>
 
-    <rect x="386" y="210" width="228" height="3" rx="1.5" fill="#97ce4c" opacity=".8">
-      <animate attributeName="width" values="150;228;150" dur="5s" repeatCount="indefinite"/>
-      <animate attributeName="x" values="425;386;425" dur="5s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values=".4;.95;.4" dur="5s" repeatCount="indefinite"/>
-    </rect>
+    <circle cx="260" cy="260" r="178" fill="none" stroke="url(#rim)" stroke-width="9">
+      <animate attributeName="opacity" values=".55;1;.55" dur="4.6s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="260" cy="260" r="163" fill="none" stroke="#f6ffdf" stroke-opacity=".18" stroke-width="2">
+      <animate attributeName="r" values="161;166;161" dur="6s" repeatCount="indefinite"/>
+    </circle>
 
-    ${sprite("rick", 52, 218, 3, 0, 3.8)}
-    ${sprite("morty", 884, 218, 3, 1.2, 4.2)}
-
-    <rect width="1000" height="300" fill="url(#lines)"/>
-    <rect x="0" y="0" width="1000" height="70" fill="url(#scan)" opacity=".7">
-      <animateTransform attributeName="transform" type="translate" from="0 -90" to="0 330" dur="8s" repeatCount="indefinite"/>
-    </rect>
-    <rect width="1000" height="300" fill="url(#vignette)"/>
-    <rect x="1" y="1" width="998" height="298" rx="20" fill="none" stroke="#ffffff" stroke-opacity=".08"/>
+    <rect width="520" height="520" fill="url(#lines)"/>
+    <rect width="520" height="520" fill="url(#vignette)"/>
+    <rect x="1" y="1" width="518" height="518" rx="26" fill="none" stroke="#ffffff" stroke-opacity=".09"/>
   </g>
 </svg>
 `;
@@ -143,16 +155,10 @@ sprites.forEach((key, i) => {
 
 const parade = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="120" viewBox="0 0 1000 120" role="img" aria-label="Character select">
   <defs>
-    <linearGradient id="fade" x1="0" x2="1">
-      <stop offset="0" stop-color="#05090a" stop-opacity="0"/>
-      <stop offset=".5" stop-color="#05090a" stop-opacity="0"/>
-      <stop offset="1" stop-color="#05090a" stop-opacity="0"/>
-    </linearGradient>
     <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur stdDeviation="4"/>
     </filter>
   </defs>
-  <rect width="1000" height="120" fill="#05090a" opacity="0"/>
   <ellipse cx="500" cy="112" rx="420" ry="10" fill="#97ce4c" opacity=".06" filter="url(#soft)"/>
   ${paradeItems}
 </svg>
