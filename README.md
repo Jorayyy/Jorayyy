@@ -4,9 +4,9 @@
 
 <a href="https://jorayyy.github.io/Jorayyy/"><img src="assets/sprites-parade.svg?v=2" width="100%" alt="Character select" /></a>
 
-<a href="https://jorayyy.github.io/Jorayyy/"><img src="assets/arcade-button.svg?v=2" width="420" alt="Play the arcade" /></a>
+<a href="https://jorayyy.github.io/Jorayyy/"><img src="assets/arcade-button.svg?v=3" width="420" alt="Play the arcade" /></a>
 
-<img src="assets/save-file.svg?v=2" width="360" alt="Save file" />
+<img src="assets/save-file.svg?v=3" width="360" alt="Save file" />
 
 </div>
 
@@ -25,6 +25,6 @@
 
 <div align="center">
 
-<img src="assets/divider.svg?v=2" width="100%" alt="" />
+<img src="assets/divider.svg?v=3" width="100%" alt="" />
 
 </div>

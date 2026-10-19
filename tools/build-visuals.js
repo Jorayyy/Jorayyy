@@ -175,6 +175,15 @@ const button = `<svg xmlns="http://www.w3.org/2000/svg" width="560" height="120"
       <feGaussianBlur stdDeviation="7" result="b"/>
       <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
+    <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e8edf1"/>
+      <stop offset=".5" stop-color="#b9c0c7"/>
+      <stop offset="1" stop-color="#8f969d"/>
+    </linearGradient>
+    <filter id="muzzle" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
   <rect x="8" y="10" width="544" height="100" rx="18" fill="#97ce4c" opacity=".18" filter="url(#pulse)">
     <animate attributeName="opacity" values=".08;.28;.08" dur="2.4s" repeatCount="indefinite"/>
@@ -183,15 +192,33 @@ const button = `<svg xmlns="http://www.w3.org/2000/svg" width="560" height="120"
   <rect x="8" y="10" width="544" height="100" rx="18" fill="none" stroke="url(#neon)" stroke-width="2.5"/>
   <rect x="14" y="16" width="532" height="88" rx="13" fill="none" stroke="#ffffff" stroke-opacity=".05"/>
 
-  <g transform="translate(58 60)">
-    <rect x="-19" y="-25" width="38" height="50" rx="7" fill="#101c12" stroke="url(#neon)" stroke-width="2"/>
-    <rect x="-11" y="-16" width="22" height="5" rx="2.5" fill="#0a120b" stroke="#4f9a2c"/>
-    <circle cx="0" cy="10" r="8" fill="none" stroke="#97ce4c" stroke-width="2">
-      <animate attributeName="r" values="7;9;7" dur="1.6s" repeatCount="indefinite"/>
+  <g transform="translate(30 18) scale(1.5)" stroke-linejoin="round">
+    <path d="M6 26 l10 0 l3 12 l-5 12 l-8 0 l-2 -12 z" fill="#7d848b" stroke="#101010" stroke-width="1.6"/>
+    <rect x="4" y="12" width="34" height="15" rx="5" fill="url(#metal)" stroke="#101010" stroke-width="1.6"/>
+    <rect x="10" y="6" width="16" height="7" rx="3" fill="#c8f5a0" stroke="#101010" stroke-width="1.5"/>
+    <rect x="12" y="7.5" width="12" height="4" rx="2" fill="#7dd63c">
+      <animate attributeName="opacity" values=".65;1;.65" dur="2.2s" repeatCount="indefinite"/>
+    </rect>
+    <circle cx="15" cy="9.5" r="1.1" fill="#ffffff">
+      <animate attributeName="cy" values="11;7;11" dur="2.6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values=".9;.2;.9" dur="2.6s" repeatCount="indefinite"/>
     </circle>
-    <circle cx="0" cy="10" r="2.5" fill="#eaffc9">
-      <animate attributeName="opacity" values=".4;1;.4" dur="1.6s" repeatCount="indefinite"/>
+    <circle cx="20" cy="9.5" r="0.9" fill="#ffffff">
+      <animate attributeName="cy" values="8;11.5;8" dur="3.1s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values=".2;.9;.2" dur="3.1s" repeatCount="indefinite"/>
     </circle>
+    <rect x="18" y="24" width="6" height="5" rx="1.5" fill="#101010"/>
+    <g filter="url(#muzzle)">
+      <ellipse cx="40" cy="19" rx="9.5" ry="9.5" fill="#97ce4c" opacity=".35">
+        <animate attributeName="rx" values="8.5;11.5;8.5" dur="1.8s" repeatCount="indefinite"/>
+        <animate attributeName="ry" values="8.5;11.5;8.5" dur="1.8s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse cx="40" cy="19" rx="7" ry="7" fill="#c8f57e">
+        <animate attributeName="opacity" values=".75;1;.75" dur="1.8s" repeatCount="indefinite"/>
+      </ellipse>
+    </g>
+    <ellipse cx="40" cy="19" rx="3.2" ry="3.2" fill="#f8ffe6"/>
+    <circle cx="40" cy="19" r="10" fill="none" stroke="#101010" stroke-width="1.6"/>
   </g>
 
   <text x="110" y="71" font-family="${FONT}" font-size="33" font-weight="700" letter-spacing="3" fill="#f0e14a">INSERT COIN</text>
@@ -220,13 +247,25 @@ const save = `<svg xmlns="http://www.w3.org/2000/svg" width="440" height="64" vi
       <stop offset="0" stop-color="#c6f27a"/>
       <stop offset="1" stop-color="#6fae35"/>
     </linearGradient>
+    <linearGradient id="disk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e9eef2"/>
+      <stop offset="1" stop-color="#aeb6bd"/>
+    </linearGradient>
   </defs>
-  <g transform="translate(14 14)">
-    <rect width="36" height="36" rx="5" fill="#0c1a10" stroke="#4f9a2c" stroke-width="2"/>
-    <rect x="7" y="2" width="16" height="11" rx="2" fill="#97ce4c"/>
-    <rect x="20" y="22" width="12" height="14" rx="1.5" fill="#0d1117" stroke="#97ce4c" stroke-width="1.5"/>
-    <rect x="7" y="22" width="8" height="2" fill="#4f9a2c"/>
-    <rect x="7" y="27" width="8" height="2" fill="#4f9a2c"/>
+  <g transform="translate(12 12)" stroke-linejoin="round">
+    <rect x="1" y="1" width="38" height="38" rx="6" fill="url(#disk)" stroke="#101010" stroke-width="2.2"/>
+    <path d="M0 30 q19 8 40 0" fill="none" stroke="#101010" stroke-width="2.2"/>
+    <path d="M9 1 h18 l10 10 v0 h-28 z" fill="#8f969d" stroke="#101010" stroke-width="2"/>
+    <rect x="10" y="3" width="14" height="8" rx="2" fill="#e9eef2" stroke="#101010" stroke-width="1.8"/>
+    <g transform="translate(13 2.5) scale(0.9)">
+      <path d="M2 12 l2.5 -7 l3 4 l2 -6 l2.5 5 l2 -4 l2.5 6 z" fill="#a7dbe8" stroke="#101010" stroke-width="1.4"/>
+      <path d="M1 14 q6 -3 12 0 q-6 5 -12 0 z" fill="#d9d9cf" stroke="#101010" stroke-width="1.4"/>
+    </g>
+    <rect x="22" y="22" width="12" height="17" rx="2" fill="#4a8f2c" stroke="#101010" stroke-width="2"/>
+    <path d="M24 26 h8 M24 30 h8 M24 34 h5" fill="none" stroke="#c6f27a" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="7" cy="35" r="2.4" fill="#7dd63c" stroke="#101010" stroke-width="1.4">
+      <animate attributeName="opacity" values="1;.25;1" dur="2.2s" repeatCount="indefinite"/>
+    </circle>
   </g>
   <text x="66" y="41" font-family="${FONT}" font-size="25" font-weight="700" letter-spacing="5" fill="url(#lg)">SAVE FILE</text>
   <rect x="268" y="22" width="9" height="18" fill="#97ce4c">
@@ -236,19 +275,37 @@ const save = `<svg xmlns="http://www.w3.org/2000/svg" width="440" height="64" vi
 </svg>
 `;
 
-const footer = `<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="50" viewBox="0 0 1000 50" role="img" aria-label="Divider">
-  <line x1="80" y1="25" x2="920" y2="25" stroke="#1f3626" stroke-width="1" stroke-dasharray="2 8"/>
-  <line x1="80" y1="25" x2="920" y2="25" stroke="#97ce4c" stroke-width="1" stroke-dasharray="2 8" opacity=".8">
+const footer = `<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="56" viewBox="0 0 1000 56" role="img" aria-label="Divider">
+  <defs>
+    <radialGradient id="p" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#f8ffe6"/>
+      <stop offset=".45" stop-color="#aee260"/>
+      <stop offset="1" stop-color="#4f9229" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <line x1="80" y1="28" x2="440" y2="28" stroke="#1f3626" stroke-width="1" stroke-dasharray="2 8"/>
+  <line x1="80" y1="28" x2="440" y2="28" stroke="#97ce4c" stroke-width="1" stroke-dasharray="2 8" opacity=".8">
     <animate attributeName="stroke-dashoffset" from="0" to="-80" dur="4s" repeatCount="indefinite"/>
   </line>
-  <circle cx="500" cy="25" r="4" fill="#97ce4c">
-    <animate attributeName="r" values="3;5;3" dur="2.4s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values=".5;1;.5" dur="2.4s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="500" cy="25" r="10" fill="none" stroke="#97ce4c" stroke-opacity=".35">
-    <animate attributeName="r" values="7;15;7" dur="3.2s" repeatCount="indefinite"/>
-    <animate attributeName="stroke-opacity" values=".35;0;.35" dur="3.2s" repeatCount="indefinite"/>
-  </circle>
+  <line x1="560" y1="28" x2="920" y2="28" stroke="#1f3626" stroke-width="1" stroke-dasharray="2 8"/>
+  <line x1="560" y1="28" x2="920" y2="28" stroke="#97ce4c" stroke-width="1" stroke-dasharray="2 8" opacity=".8">
+    <animate attributeName="stroke-dashoffset" from="0" to="-80" dur="4s" repeatCount="indefinite"/>
+  </line>
+  <g transform="translate(500 28)">
+    <circle r="20" fill="#8fd945" opacity=".22">
+      <animate attributeName="r" values="15;23;15" dur="3.6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values=".16;.3;.16" dur="3.6s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="14" fill="url(#p)" opacity=".95">
+      <animate attributeName="r" values="12;15;12" dur="3.6s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="16" fill="none" stroke="#d9ff9e" stroke-opacity=".55" stroke-width="1.6" stroke-dasharray="3 5">
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="14s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="0" cy="-18" r="2.4" fill="#f0e14a">
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="6s" repeatCount="indefinite"/>
+    </circle>
+  </g>
 </svg>
 `;
 

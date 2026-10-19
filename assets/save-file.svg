@@ -4,13 +4,25 @@
       <stop offset="0" stop-color="#c6f27a"/>
       <stop offset="1" stop-color="#6fae35"/>
     </linearGradient>
+    <linearGradient id="disk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e9eef2"/>
+      <stop offset="1" stop-color="#aeb6bd"/>
+    </linearGradient>
   </defs>
-  <g transform="translate(14 14)">
-    <rect width="36" height="36" rx="5" fill="#0c1a10" stroke="#4f9a2c" stroke-width="2"/>
-    <rect x="7" y="2" width="16" height="11" rx="2" fill="#97ce4c"/>
-    <rect x="20" y="22" width="12" height="14" rx="1.5" fill="#0d1117" stroke="#97ce4c" stroke-width="1.5"/>
-    <rect x="7" y="22" width="8" height="2" fill="#4f9a2c"/>
-    <rect x="7" y="27" width="8" height="2" fill="#4f9a2c"/>
+  <g transform="translate(12 12)" stroke-linejoin="round">
+    <rect x="1" y="1" width="38" height="38" rx="6" fill="url(#disk)" stroke="#101010" stroke-width="2.2"/>
+    <path d="M0 30 q19 8 40 0" fill="none" stroke="#101010" stroke-width="2.2"/>
+    <path d="M9 1 h18 l10 10 v0 h-28 z" fill="#8f969d" stroke="#101010" stroke-width="2"/>
+    <rect x="10" y="3" width="14" height="8" rx="2" fill="#e9eef2" stroke="#101010" stroke-width="1.8"/>
+    <g transform="translate(13 2.5) scale(0.9)">
+      <path d="M2 12 l2.5 -7 l3 4 l2 -6 l2.5 5 l2 -4 l2.5 6 z" fill="#a7dbe8" stroke="#101010" stroke-width="1.4"/>
+      <path d="M1 14 q6 -3 12 0 q-6 5 -12 0 z" fill="#d9d9cf" stroke="#101010" stroke-width="1.4"/>
+    </g>
+    <rect x="22" y="22" width="12" height="17" rx="2" fill="#4a8f2c" stroke="#101010" stroke-width="2"/>
+    <path d="M24 26 h8 M24 30 h8 M24 34 h5" fill="none" stroke="#c6f27a" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="7" cy="35" r="2.4" fill="#7dd63c" stroke="#101010" stroke-width="1.4">
+      <animate attributeName="opacity" values="1;.25;1" dur="2.2s" repeatCount="indefinite"/>
+    </circle>
   </g>
   <text x="66" y="41" font-family="ui-monospace, 'Cascadia Mono', 'Courier New', monospace" font-size="25" font-weight="700" letter-spacing="5" fill="url(#lg)">SAVE FILE</text>
   <rect x="268" y="22" width="9" height="18" fill="#97ce4c">
