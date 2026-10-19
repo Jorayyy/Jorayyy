@@ -1,3 +1,5 @@
+// Character vectors: SVG Repo (440512 Rick, 440507 Morty) under the SVG Repo License;
+// Rick and Morty characters are (c) Adult Swim. Fan use only.
 const fs = require("fs");
 const path = require("path");
 
@@ -12,6 +14,27 @@ for (const key of sprites) {
 }
 
 const FONT = "ui-monospace, 'Cascadia Mono', 'Courier New', monospace";
+
+const charactersDir = path.join(assets, "characters");
+function loadSvgInner(file) {
+  const s = fs.readFileSync(path.join(charactersDir, file), "utf8");
+  return s.replace(/<\?xml[^>]*\?>/g, "").replace(/^[\s\S]*?<svg[^>]*>/, "").replace(/<\/svg>\s*$/, "");
+}
+const RICK_ART = loadSvgInner("rick.svg");
+const MORTY_ART = loadSvgInner("morty.svg");
+
+function tumble(art, x, y, scale, begin, dir, dur) {
+  return `
+    <g transform="translate(${x} ${y}) scale(${scale})">
+      <g>
+        <animateTransform attributeName="transform" type="rotate" values="${dir * 6} 32 32;${-dir * 6} 32 32;${dir * 6} 32 32" dur="${dur}s" begin="${begin}s" repeatCount="indefinite"/>
+        <g>
+          <animateTransform attributeName="transform" type="translate" values="0 0;0 -7;0 0" dur="${(dur * 0.8).toFixed(1)}s" begin="${begin}s" repeatCount="indefinite"/>
+          ${art}
+        </g>
+      </g>
+    </g>`;
+}
 
 function sprite(key, x, y, scale, delay, dur) {
   const size = 16 * scale;
@@ -131,6 +154,12 @@ const hero = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3
 
     <rect width="520" height="520" fill="url(#lines)"/>
     <rect width="520" height="520" fill="url(#vignette)"/>
+
+    <ellipse cx="88" cy="366" rx="58" ry="66" fill="#9ce04a" opacity=".22" filter="url(#soft)"/>
+    <ellipse cx="432" cy="382" rx="54" ry="60" fill="#9ce04a" opacity=".22" filter="url(#soft)"/>
+    ${tumble(RICK_ART, 20, 262, 1.98, 0, 1, 7.4)}
+    ${tumble(MORTY_ART, 370, 284, 1.92, 1.1, -1, 8.2)}
+
     <rect x="1" y="1" width="518" height="518" rx="26" fill="none" stroke="#ffffff" stroke-opacity=".09"/>
   </g>
 </svg>
