@@ -2,7 +2,7 @@
 
 <img src="assets/hero-portal.svg?v=2" width="340" alt="Rick's portal" />
 
-<a href="https://jorayyy.github.io/Jorayyy/"><img src="assets/sprites-parade.svg?v=2" width="100%" alt="Character select" /></a>
+<a href="https://jorayyy.github.io/Jorayyy/"><img src="assets/sprites-parade.svg?v=3" width="100%" alt="Character select" /></a>
 
 <a href="https://jorayyy.github.io/Jorayyy/"><img src="assets/arcade-button.svg?v=3" width="420" alt="Play the arcade" /></a>
 
@@ -25,6 +25,6 @@
 
 <div align="center">
 
-<img src="assets/divider.svg?v=3" width="100%" alt="" />
+<a href="https://icons8.com" title="Icons by Icons8"><img src="assets/divider.svg?v=3" width="100%" alt="" /></a>
 
 </div>

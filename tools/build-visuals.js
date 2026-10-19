@@ -1,18 +1,11 @@
-// Character vectors: SVG Repo (440512 Rick, 440507 Morty) under the SVG Repo License;
+// Hero vectors: SVG Repo (440512 Rick, 440507 Morty) under the SVG Repo License;
+// Parade vectors: traced from Icons8 free icons (icons8.com, link required);
 // Rick and Morty characters are (c) Adult Swim. Fan use only.
 const fs = require("fs");
 const path = require("path");
 
 const root = path.join(__dirname, "..");
 const assets = path.join(root, "assets");
-const spritesDir = path.join(assets, "sprites");
-
-const sprites = ["rick", "morty", "pickle-rick", "meeseeks", "evil-morty", "butter-robot", "birdperson", "squanchy", "jerry"];
-const b64 = {};
-for (const key of sprites) {
-  b64[key] = fs.readFileSync(path.join(spritesDir, key + ".png")).toString("base64");
-}
-
 const FONT = "ui-monospace, 'Cascadia Mono', 'Courier New', monospace";
 
 const charactersDir = path.join(assets, "characters");
@@ -34,15 +27,6 @@ function tumble(art, x, y, scale, begin, dir, dur) {
         </g>
       </g>
     </g>`;
-}
-
-function sprite(key, x, y, scale, delay, dur) {
-  const size = 16 * scale;
-  return `
-  <g transform="translate(${x} ${y})">
-    <animateTransform attributeName="transform" type="translate" values="${x} ${y};${x} ${y - 7};${x} ${y}" dur="${dur}s" begin="${delay}s" repeatCount="indefinite"/>
-    <image href="data:image/png;base64,${b64[key]}" xlink:href="data:image/png;base64,${b64[key]}" width="${size}" height="${size}" image-rendering="pixelated"/>
-  </g>`;
 }
 
 let seed = 11;
@@ -165,19 +149,39 @@ const hero = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3
 </svg>
 `;
 
+const CREW = [
+  { file: "rick-sanchez.svg", color: "#a7dbe8" },
+  { file: "morty-smith.svg", color: "#f0e14a" },
+  { file: "jerry-smith.svg", color: "#93a7bd" },
+  { file: "beth-smith.svg", color: "#f2d06b" },
+  { file: "summer-smith.svg", color: "#e2764f" },
+  { file: "plambus.svg", color: "#c9a06b" }
+];
+
+function crewArt(file, color) {
+  const inner = loadSvgInner(path.join("icons8", file));
+  return inner.replace(/fill="#d9ff9e"/g, `fill="${color}"`);
+}
+
+const TILE = 112;
+const GAP = 20;
 let paradeItems = "";
-sprites.forEach((key, i) => {
-  const x = 20 + i * 104;
+CREW.forEach((c, i) => {
+  const x = 500 - (CREW.length * TILE + (CREW.length - 1) * GAP) / 2 + i * (TILE + GAP);
+  const begin = (i * 0.26).toFixed(2);
+  const art = crewArt(c.file, c.color);
   paradeItems += `
-  <g transform="translate(${x} 12)">
-    <rect width="96" height="96" rx="16" fill="#0b1410" stroke="#21382a"/>
-    <rect x="1" y="1" width="94" height="94" rx="15" fill="none" stroke="#ffffff" stroke-opacity=".04"/>
-    <circle cx="48" cy="54" r="30" fill="#97ce4c" opacity=".06">
-      <animate attributeName="opacity" values=".03;.11;.03" dur="3.2s" begin="${(i * 0.22).toFixed(2)}s" repeatCount="indefinite"/>
+  <g transform="translate(${x} 4)">
+    <rect width="${TILE}" height="${TILE}" rx="18" fill="#0b1410" stroke="#21382a"/>
+    <rect x="1" y="1" width="${TILE - 2}" height="${TILE - 2}" rx="17" fill="none" stroke="#ffffff" stroke-opacity=".04"/>
+    <circle cx="${TILE / 2}" cy="${TILE / 2 + 6}" r="34" fill="${c.color}" opacity=".07">
+      <animate attributeName="opacity" values=".03;.13;.03" dur="3.4s" begin="${begin}s" repeatCount="indefinite"/>
     </circle>
     <g>
-      <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="2.8s" begin="${(i * 0.18).toFixed(2)}s" repeatCount="indefinite"/>
-      <image href="data:image/png;base64,${b64[key]}" xlink:href="data:image/png;base64,${b64[key]}" x="24" y="22" width="48" height="48" image-rendering="pixelated"/>
+      <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="2.9s" begin="${begin}s" repeatCount="indefinite"/>
+      <g transform="translate(${TILE / 2 - 37} ${TILE / 2 - 37}) scale(1.16)">
+        ${art}
+      </g>
     </g>
   </g>`;
 });
@@ -188,7 +192,7 @@ const parade = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.
       <feGaussianBlur stdDeviation="4"/>
     </filter>
   </defs>
-  <ellipse cx="500" cy="112" rx="420" ry="10" fill="#97ce4c" opacity=".06" filter="url(#soft)"/>
+  <ellipse cx="500" cy="114" rx="380" ry="8" fill="#97ce4c" opacity=".06" filter="url(#soft)"/>
   ${paradeItems}
 </svg>
 `;
