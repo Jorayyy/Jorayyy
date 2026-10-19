@@ -106,7 +106,14 @@ I'm a full-stack developer from Tacloban, Philippines. I ship production systems
 ## 🏆 HIGH SCORES
 
 <p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=Jorayyy&theme=darkhub&no-frame=true&no-bg=true&column=7&margin-w=10&margin-h=10" alt="Trophies" />
+  <img src="https://img.shields.io/github/followers/Jorayyy?style=for-the-badge&label=FOLLOWERS&labelColor=0D1117&color=97CE4C" alt="Followers" />
+  <img src="https://img.shields.io/badge/QUESTS_COMPLETED-40%2B-F0E14A?style=for-the-badge&labelColor=0D1117" alt="Quests completed" />
+  <img src="https://img.shields.io/badge/GAME_MODE-CAREER-B084EB?style=for-the-badge&labelColor=0D1117" alt="Game mode" />
+</p>
+
+<p align="center">
+  <a href="https://github.com/Jorayyy/copecares"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Jorayyy&repo=copecares&theme=chartreuse-dark&hide_border=true" alt="CopeCares" /></a>
+  <a href="https://github.com/Jorayyy/mebs_inventory"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Jorayyy&repo=mebs_inventory&theme=chartreuse-dark&hide_border=true" alt="Mebs Inventory" /></a>
 </p>
 
 ---
