@@ -2,6 +2,8 @@
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=97ce4c&height=210&section=header&text=JORAYYY&fontSize=72&fontColor=0d1117&animation=twinkling&fontAlignY=36&desc=WUBBA%20LUBBA%20DUB%20DUB&descAlignY=58&descSize=18" width="100%" />
 
+<img src="assets/portal.svg" width="150" alt="Animated portal" />
+
 <a href="https://git.io/typing-svg">
   <img src="https://readme-typing-svg.demolab.com?font=Press+Start+2P&size=16&pause=900&color=97CE4C&center=true&vCenter=true&width=760&lines=I'M+PICKLE+RIIIIICK!;WUBBA+LUBBA+DUB+DUB;SHOW+ME+WHAT+YOU+GOT;FULL-STACK+DEV+%3A%3A+LARAVEL+%2B+TYPESCRIPT" alt="Typing SVG" />
 </a>

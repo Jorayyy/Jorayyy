@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="360" viewBox="0 0 360 360" role="img" aria-labelledby="portalTitle">
+  <title id="portalTitle">An animated arcade portal</title>
+  <defs>
+    <radialGradient id="core" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#eaffc9" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="#97ce4c" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#97ce4c" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="scan" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="3" fill="#000000" opacity="0.25"/>
+    </pattern>
+    <clipPath id="portalClip">
+      <circle cx="180" cy="180" r="150"/>
+    </clipPath>
+  </defs>
+
+  <g transform="translate(180 180)" filter="url(#glow)">
+    <circle r="150" fill="url(#core)">
+      <animate attributeName="r" values="140;152;140" dur="4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.75;1;0.75" dur="4s" repeatCount="indefinite"/>
+    </circle>
+
+    <g fill="none" shape-rendering="crispEdges">
+      <circle r="132" stroke="#97ce4c" stroke-width="10" stroke-dasharray="16 12" opacity="0.9">
+        <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="22s" repeatCount="indefinite"/>
+      </circle>
+      <circle r="110" stroke="#c6f27a" stroke-width="8" stroke-dasharray="9 16" opacity="0.75">
+        <animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="15s" repeatCount="indefinite"/>
+      </circle>
+      <circle r="88" stroke="#97ce4c" stroke-width="14" stroke-dasharray="24 14" opacity="0.85">
+        <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="10s" repeatCount="indefinite"/>
+      </circle>
+      <circle r="64" stroke="#d8ff8a" stroke-width="6" stroke-dasharray="6 10" opacity="0.7">
+        <animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="24s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+
+    <g>
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="12s" repeatCount="indefinite"/>
+      <rect x="146" y="-6" width="12" height="12" fill="#f0e14a"/>
+      <rect x="-158" y="-6" width="12" height="12" fill="#b084eb"/>
+    </g>
+    <g>
+      <animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="18s" repeatCount="indefinite"/>
+      <rect x="-5" y="-160" width="10" height="10" fill="#58a6ff"/>
+      <rect x="-5" y="150" width="10" height="10" fill="#f0e14a"/>
+    </g>
+
+    <circle r="34" fill="#eaffc9" opacity="0.85">
+      <animate attributeName="r" values="28;38;28" dur="2.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.7;0.95;0.7" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <rect width="360" height="360" fill="url(#scan)" clip-path="url(#portalClip)" opacity="0.5"/>
+</svg>
