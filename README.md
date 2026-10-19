@@ -1,12 +1,12 @@
 <div align="center">
 
-<img src="assets/hero.svg" width="340" alt="Rick's portal" />
+<img src="assets/hero.svg?v=2" width="340" alt="Rick's portal" />
 
-<a href="https://jorayyy.github.io/Jorayyy/"><img src="assets/sprites-parade.svg" width="100%" alt="Character select" /></a>
+<a href="https://jorayyy.github.io/Jorayyy/"><img src="assets/sprites-parade.svg?v=2" width="100%" alt="Character select" /></a>
 
-<a href="https://jorayyy.github.io/Jorayyy/"><img src="assets/arcade-button.svg" width="420" alt="Play the arcade" /></a>
+<a href="https://jorayyy.github.io/Jorayyy/"><img src="assets/arcade-button.svg?v=2" width="420" alt="Play the arcade" /></a>
 
-<img src="assets/save-file.svg" width="360" alt="Save file" />
+<img src="assets/save-file.svg?v=2" width="360" alt="Save file" />
 
 </div>
 
@@ -25,6 +25,6 @@
 
 <div align="center">
 
-<img src="assets/divider.svg" width="100%" alt="" />
+<img src="assets/divider.svg?v=2" width="100%" alt="" />
 
 </div>
