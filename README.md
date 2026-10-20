@@ -1,4 +1,4 @@
-﻿<div align="center">
+<div align="center">
 
 <img src="assets/hero-portal.svg?v=5" width="340" alt="Green portal with Rick and Morty" />
 <sub>Portal art from <a href="https://github.com/flborrelli/rick-and-morty-game">flborrelli/rick-and-morty-game</a></sub>
