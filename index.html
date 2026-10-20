@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>JORAYYY ARCADE — Portal Kingdom</title>
+<title>JORAYYY ARCADE â€” Portal Kingdom</title>
 <meta name="description" content="A tiny Rick and Morty themed arcade by Jorayyy. Pick a character, dodge Jerrys, collect portal fluid." />
-<link rel="icon" href="assets/sprites/rick.svg" type="image/svg+xml" />
+<link rel="icon" href="assets/characters2d/rick.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -160,10 +160,9 @@
   .card img {
     display: block;
     width: auto;
-    height: 52px;
+    height: 64px;
     margin: 0 auto 10px;
     opacity: .92;
-    image-rendering: pixelated;
     transition: opacity .2s, transform .2s;
   }
 
@@ -222,8 +221,7 @@
     display: block;
     width: 100%;
     height: auto;
-    image-rendering: pixelated;
-    image-rendering: crisp-edges;
+    image-rendering: auto;
     touch-action: manipulation;
   }
 
@@ -347,7 +345,7 @@
 <body>
 
 <header class="wrap">
-  <img class="portal-badge" src="assets/hero-portal.svg?v=4" alt="" width="260" height="260" />
+  <img class="portal-badge" src="assets/hero-portal.svg?v=5" alt="" width="260" height="260" />
   <h1>JORAYYY ARCADE</h1>
   <div class="tagline"><span class="portal-dot"></span>PORTAL KINGDOM v2.0<span class="portal-dot"></span></div>
   <div class="tagline blink" style="margin-top:10px">INSERT COIN TO CONTINUE</div>
@@ -433,12 +431,12 @@
   "use strict";
 
   var SPRITES = {
-    "rick":    { label: "RICK",    role: "Backend Architect",   spec: "Laravel, PHP, database design",           quote: "Wubba lubba dub dub. Usually that means a broken migration.", art: "assets/sprites/rick.svg", tint: "#a7dbe8" },
-    "morty":   { label: "MORTY",   role: "Frontend Apprentice", spec: "TypeScript, React, Next.js, Tailwind",    quote: "Aw geez, Rick, that is like 400 components.", art: "assets/sprites/morty.svg", tint: "#f0e14a" },
-    "jerry":   { label: "JERRY",   role: "Legacy Codebase",     spec: "The old repo you still depend on",        quote: "Nothing wrong with a little Jerry energy.", art: "assets/sprites/jerry.svg", tint: "#93a7bd" },
-    "beth":    { label: "BETH",    role: "Systems Surgeon",     spec: "Refactors, migrations, precision fixes",  quote: "Horse surgeon, then production surgeon. Same nerves.", art: "assets/sprites/beth.svg", tint: "#f2d06b" },
-    "summer":  { label: "SUMMER",  role: "Growth and Ops",      spec: "Automation, analytics, dashboards",       quote: "I am not a kid. I run the whole analytics stack.", art: "assets/sprites/summer.svg", tint: "#e2764f" },
-    "plumbus": { label: "PLUMBUS", role: "The Utility",         spec: "Does everything, nobody knows how",       quote: "Everyone has a plumbus in their stack. Nobody asks why.", art: "assets/sprites/plumbus.svg", tint: "#c9a06b" }
+    "rick":    { label: "RICK",    role: "Backend Architect",   spec: "Laravel, PHP, database design",           quote: "Wubba lubba dub dub. Usually that means a broken migration.", art: "assets/characters2d/rick.svg", tint: "#a7dbe8" },
+    "morty":   { label: "MORTY",   role: "Frontend Apprentice", spec: "TypeScript, React, Next.js, Tailwind",    quote: "Aw geez, Rick, that is like 400 components.", art: "assets/characters2d/morty.svg", tint: "#f0e14a" },
+    "jerry":   { label: "JERRY",   role: "Legacy Codebase",     spec: "The old repo you still depend on",        quote: "Nothing wrong with a little Jerry energy.", art: "assets/characters2d/jerry.svg", tint: "#93a7bd" },
+    "beth":    { label: "BETH",    role: "Systems Surgeon",     spec: "Refactors, migrations, precision fixes",  quote: "Horse surgeon, then production surgeon. Same nerves.", art: "assets/characters2d/beth.svg", tint: "#f2d06b" },
+    "summer":  { label: "SUMMER",  role: "Growth and Ops",      spec: "Automation, analytics, dashboards",       quote: "I am not a kid. I run the whole analytics stack.", art: "assets/characters2d/summer.svg", tint: "#e2764f" },
+    "plumbus": { label: "PLUMBUS", role: "The Utility",         spec: "Does everything, nobody knows how",       quote: "Everyone has a plumbus in their stack. Nobody asks why.", art: "assets/characters2d/plumbus.svg", tint: "#c9a06b" }
   };
 
   var QUOTES = [
@@ -488,11 +486,11 @@
   var H = canvas.height;
   var GROUND = 224;
 
-  var PIXEL_SPRITES = ["rick", "morty", "jerry", "beth", "summer", "plumbus", "pickle-rick", "meeseeks", "evil-morty", "butter-robot", "birdperson", "squanchy"];
+  var SPRITE_KEYS = ["rick", "morty", "jerry", "beth", "summer", "plumbus", "meeseeks", "butter-robot"];
   var images = {};
-  PIXEL_SPRITES.forEach(function (key) {
+  SPRITE_KEYS.forEach(function (key) {
     var img = new Image();
-    img.src = "assets/sprites/" + key + ".png";
+    img.src = "assets/characters2d/" + key + ".svg";
     images[key] = img;
   });
 
@@ -1101,7 +1099,7 @@
   function drawEnemy(e) {
     var bob = e.dead ? 0 : Math.round(Math.sin(tick * 9 + e.seed) * 1.5);
     ctx.globalAlpha = e.dead ? 0.45 : 1;
-    drawSprite(ctx, "jerry", e.x + (e.w - 32) / 2, e.y + e.h - 48 + bob, 2);
+    drawSprite(ctx, "jerry", e.x + (e.w - 32) / 2, e.y + e.h - 48 + bob, 0.5);
     ctx.globalAlpha = 1;
   }
 
@@ -1117,11 +1115,11 @@
     ctx.arc(player.x + player.w / 2, player.y + player.h / 2 + bob, 30, 0, Math.PI * 2);
     ctx.stroke();
     ctx.restore();
-    drawSprite(ctx, selected, player.x + (player.w - 32) / 2, player.y + player.h - 48 + bob, 2);
+    drawSprite(ctx, selected, player.x + (player.w - 32) / 2, player.y + player.h - 48 + bob, 0.5);
   }
 
   function render() {
-    ctx.imageSmoothingEnabled = false;
+    ctx.imageSmoothingEnabled = true;
     ctx.drawImage(bgCanvas, 0, 0);
     drawClouds();
     drawGround();
@@ -1283,7 +1281,7 @@
   }
 
   function whackRender() {
-    wctx.imageSmoothingEnabled = false;
+    wctx.imageSmoothingEnabled = true;
     wctx.drawImage(bgCanvas, 0, 0);
 
     for (var i = 0; i < whack.holes.length; i++) {
@@ -1306,7 +1304,7 @@
       wctx.rect(c.x - 20, c.y - 44, 40, 52);
       wctx.clip();
       wctx.globalAlpha = h.life < 0.25 ? h.life / 0.25 : 1;
-      drawSprite(wctx, h.type, c.x - 16, y, 2);
+      drawSprite(wctx, h.type, c.x - 16, y, 0.5);
       wctx.restore();
     }
 
@@ -1452,7 +1450,7 @@
 
   /* ---------- boot ---------- */
 
-  var ready = Promise.all(PIXEL_SPRITES.map(function (key) {
+  var ready = Promise.all(SPRITE_KEYS.map(function (key) {
     return new Promise(function (resolve) {
       var img = images[key];
       if (img.complete) return resolve();
@@ -1479,3 +1477,5 @@
 </script>
 </body>
 </html>
+
+

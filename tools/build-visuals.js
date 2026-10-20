@@ -1,5 +1,5 @@
 // Rick and Morty characters are (c) Adult Swim. Fan use only.
-// All character art is original pixel art generated from tools/sprites.json.
+// Characters are original 2D vector art; the portal crop is from flborrelli/rick-and-morty-game.
 const fs = require("fs");
 const path = require("path");
 
@@ -8,19 +8,20 @@ const assets = path.join(root, "assets");
 const FONT = "ui-monospace, 'Cascadia Mono', 'Courier New', monospace";
 
 function loadSprite(key) {
-  const s = fs.readFileSync(path.join(assets, "sprites", key + ".svg"), "utf8");
+  const s = fs.readFileSync(path.join(assets, "characters2d", key + ".svg"), "utf8");
   return s.replace(/<\?xml[^>]*\?>/g, "").replace(/^[\s\S]*?<svg[^>]*>/, "").replace(/<\/svg>\s*$/, "");
 }
 const RICK_ART = loadSprite("rick");
 const MORTY_ART = loadSprite("morty");
+const PORTAL = fs.readFileSync(path.join(assets, "portal-2d.png")).toString("base64");
 
 function tumble(art, x, y, scale, begin, dir, dur, cx, cy) {
   const ox = cx === undefined ? 32 : cx;
-  const oy = cy === undefined ? 32 : cy;
+  const oy = cy === undefined ? 48 : cy;
   return `
     <g transform="translate(${x} ${y}) scale(${scale})">
       <g>
-        <animateTransform attributeName="transform" type="rotate" values="${dir * 6} ${ox} ${oy};${-dir * 6} ${ox} ${oy};${dir * 6} ${ox} ${oy}" dur="${dur}s" begin="${begin}s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="rotate" values="${dir * 4} ${ox} ${oy};${-dir * 4} ${ox} ${oy};${dir * 4} ${ox} ${oy}" dur="${dur}s" begin="${begin}s" repeatCount="indefinite"/>
         <g>
           <animateTransform attributeName="transform" type="translate" values="0 0;0 -7;0 0" dur="${(dur * 0.8).toFixed(1)}s" begin="${begin}s" repeatCount="indefinite"/>
           ${art}
@@ -35,7 +36,7 @@ function rand() {
   return seed / 2147483648;
 }
 
-const stars = Array.from({ length: 46 }, (_, i) => {
+const stars = Array.from({ length: 38 }, (_, i) => {
   const x = Math.round(rand() * 470) + 25;
   const y = Math.round(rand() * 470) + 25;
   const s = i % 9 === 0 ? 2 : 1;
@@ -44,51 +45,15 @@ const stars = Array.from({ length: 46 }, (_, i) => {
   return `<rect x="${x}" y="${y}" width="${s}" height="${s}" fill="${fill}" opacity=".5"><animate attributeName="opacity" values=".12;.8;.12" dur="${(2 + rand() * 3).toFixed(1)}s" begin="${begin}s" repeatCount="indefinite"/></rect>`;
 }).join("\n    ");
 
-const hero = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="520" height="520" viewBox="0 0 520 520" role="img" aria-label="Rick's portal">
+const hero = `<svg xmlns="http://www.w3.org/2000/svg" width="520" height="520" viewBox="0 0 520 520" role="img" aria-label="Green portal">
   <defs>
     <radialGradient id="bg" cx="50%" cy="45%" r="75%">
       <stop offset="0" stop-color="#0b1a10"/>
       <stop offset=".55" stop-color="#050c08"/>
       <stop offset="1" stop-color="#030605"/>
     </radialGradient>
-    <radialGradient id="portal" cx="50%" cy="46%" r="52%">
-      <stop offset="0" stop-color="#f6ffdf" stop-opacity=".95"/>
-      <stop offset=".18" stop-color="#d6ff96" stop-opacity=".88"/>
-      <stop offset=".38" stop-color="#aee260" stop-opacity=".9"/>
-      <stop offset=".62" stop-color="#77b83c" stop-opacity=".78"/>
-      <stop offset=".84" stop-color="#417d23" stop-opacity=".42"/>
-      <stop offset="1" stop-color="#2c5c17" stop-opacity=".06"/>
-    </radialGradient>
-    <radialGradient id="rim" cx="50%" cy="50%" r="50%">
-      <stop offset=".7" stop-color="#d9ff9e" stop-opacity="0"/>
-      <stop offset=".9" stop-color="#d9ff9e" stop-opacity=".75"/>
-      <stop offset="1" stop-color="#f6ffdf" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="vignette" cx="50%" cy="46%" r="72%">
-      <stop offset=".5" stop-color="#000" stop-opacity="0"/>
-      <stop offset="1" stop-color="#000" stop-opacity=".6"/>
-    </radialGradient>
-    <pattern id="lines" width="4" height="4" patternUnits="userSpaceOnUse">
-      <rect width="4" height="2" fill="#000" opacity=".14"/>
-    </pattern>
-    <filter id="warp" x="-30%" y="-30%" width="160%" height="160%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.014 0.018" numOctaves="3" seed="9" result="n">
-        <animate attributeName="baseFrequency" values="0.013 0.017;0.023 0.027;0.013 0.017" dur="11s" repeatCount="indefinite"/>
-      </feTurbulence>
-      <feDisplacementMap in="SourceGraphic" in2="n" scale="32" xChannelSelector="R" yChannelSelector="G"/>
-    </filter>
-    <filter id="swirl" x="-40%" y="-40%" width="180%" height="180%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.03 0.026" numOctaves="2" seed="23" result="n">
-        <animate attributeName="baseFrequency" values="0.026 0.03;0.038 0.022;0.026 0.03" dur="8s" repeatCount="indefinite"/>
-      </feTurbulence>
-      <feDisplacementMap in="SourceGraphic" in2="n" scale="26" xChannelSelector="R" yChannelSelector="G"/>
-      <feGaussianBlur stdDeviation="4"/>
-    </filter>
     <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur stdDeviation="7"/>
-    </filter>
-    <filter id="halo" x="-60%" y="-60%" width="220%" height="220%">
-      <feGaussianBlur stdDeviation="22"/>
     </filter>
     <clipPath id="card"><rect x="1" y="1" width="518" height="518" rx="26"/></clipPath>
   </defs>
@@ -97,52 +62,14 @@ const hero = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3
     <rect width="520" height="520" fill="url(#bg)"/>
     ${stars}
 
-    <ellipse cx="260" cy="264" rx="192" ry="192" fill="#8fd945" opacity=".2" filter="url(#halo)">
-      <animate attributeName="opacity" values=".13;.28;.13" dur="5.4s" repeatCount="indefinite"/>
+    <ellipse cx="260" cy="270" rx="198" ry="198" fill="#7dd63c" opacity=".18" filter="url(#soft)">
+      <animate attributeName="opacity" values=".1;.26;.1" dur="5.4s" repeatCount="indefinite"/>
     </ellipse>
 
-    <g filter="url(#warp)">
-      <circle cx="260" cy="260" r="171" fill="url(#portal)"/>
-      <circle cx="260" cy="260" r="171" fill="none" stroke="#f6ffdf" stroke-opacity=".8" stroke-width="3.5"/>
-      <circle cx="260" cy="260" r="165" fill="none" stroke="#ffffff" stroke-opacity=".3" stroke-width="1.4"/>
-    </g>
+    <image href="data:image/png;base64,${PORTAL}" x="80" y="25" width="360" height="450" preserveAspectRatio="xMidYMid meet"/>
 
-    <g filter="url(#swirl)" opacity=".8">
-      <g>
-        <animateTransform attributeName="transform" type="rotate" from="0 260 260" to="360 260 260" dur="26s" repeatCount="indefinite"/>
-        <path d="M262 116 C 336 130, 396 198, 380 282 C 366 350, 306 398, 242 400" fill="none" stroke="#ffffff" stroke-opacity=".55" stroke-width="12"/>
-        <path d="M142 296 C 158 218, 224 148, 322 138" fill="none" stroke="#d9ff9e" stroke-opacity=".45" stroke-width="10"/>
-      </g>
-      <g>
-        <animateTransform attributeName="transform" type="rotate" from="360 260 260" to="0 260 260" dur="34s" repeatCount="indefinite"/>
-        <path d="M180 190 C 246 122, 352 132, 398 210" fill="none" stroke="#f6ffdf" stroke-opacity=".33" stroke-width="16"/>
-      </g>
-    </g>
-
-    <g>
-      <animateTransform attributeName="transform" type="rotate" from="0 260 260" to="-360 260 260" dur="19s" repeatCount="indefinite"/>
-      <ellipse cx="260" cy="114" rx="27" ry="9" fill="#f6ffdf" opacity=".4" filter="url(#soft)">
-        <animate attributeName="opacity" values=".15;.6;.15" dur="3.4s" repeatCount="indefinite"/>
-      </ellipse>
-      <ellipse cx="260" cy="406" rx="20" ry="7" fill="#d9ff9e" opacity=".28" filter="url(#soft)">
-        <animate attributeName="opacity" values=".1;.45;.1" dur="4.1s" repeatCount="indefinite"/>
-      </ellipse>
-    </g>
-
-    <circle cx="260" cy="260" r="178" fill="none" stroke="url(#rim)" stroke-width="9">
-      <animate attributeName="opacity" values=".55;1;.55" dur="4.6s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="260" cy="260" r="163" fill="none" stroke="#f6ffdf" stroke-opacity=".18" stroke-width="2">
-      <animate attributeName="r" values="161;166;161" dur="6s" repeatCount="indefinite"/>
-    </circle>
-
-    <rect width="520" height="520" fill="url(#lines)"/>
-    <rect width="520" height="520" fill="url(#vignette)"/>
-
-    <ellipse cx="88" cy="366" rx="58" ry="66" fill="#9ce04a" opacity=".22" filter="url(#soft)"/>
-    <ellipse cx="432" cy="382" rx="54" ry="60" fill="#9ce04a" opacity=".22" filter="url(#soft)"/>
-    ${tumble(RICK_ART, 110, 270, 4, 0, 1, 7.4, 8, 12)}
-    ${tumble(MORTY_ART, 346, 270, 4, 1.1, -1, 8.2, 8, 12)}
+    ${tumble(RICK_ART, 55, 330, 1.5, 0, 1, 7.4)}
+    ${tumble(MORTY_ART, 369, 330, 1.5, 1.1, -1, 8.2)}
 
     <rect x="1" y="1" width="518" height="518" rx="26" fill="none" stroke="#ffffff" stroke-opacity=".09"/>
   </g>
@@ -175,7 +102,7 @@ CREW.forEach((c, i) => {
     <ellipse cx="${TILE / 2}" cy="105" rx="24" ry="4" fill="${c.color}" opacity=".14"/>
     <g>
       <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="2.9s" begin="${begin}s" repeatCount="indefinite"/>
-      <g transform="translate(24 8) scale(4)">
+      <g transform="translate(24 8)">
         ${art}
       </g>
     </g>

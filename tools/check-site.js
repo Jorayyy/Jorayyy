@@ -19,9 +19,13 @@ const ids = [...new Set([...html.matchAll(/getElementById\("([^"]+)"\)/g)].map(m
 const missing = ids.filter(id => !html.includes('id="' + id + '"'));
 console.log("ids referenced:", ids.length, "missing:", missing.length ? missing : "none");
 
-const spriteKeys = [...new Set([...html.matchAll(/assets\/sprites\/([a-z-]+)\.(png|svg)/g)].map(m => m[1]))];
-const files = fs.readdirSync("assets/sprites");
-const missingFiles = spriteKeys.filter(k => !files.includes(k + ".png") || !files.includes(k + ".svg"));
+const listed = (html.match(/var SPRITE_KEYS = \[([^\]]+)\]/) || [])[1] || "";
+const spriteKeys = [...new Set([
+  ...[...html.matchAll(/assets\/characters2d\/([a-z-]+)\.svg/g)].map(m => m[1]),
+  ...[...listed.matchAll(/"([a-z-]+)"/g)].map(m => m[1])
+])];
+const files = fs.readdirSync("assets/characters2d");
+const missingFiles = spriteKeys.filter(k => !files.includes(k + ".svg"));
 console.log("sprites referenced:", spriteKeys.join(", "));
 console.log("missing sprite files:", missingFiles.length ? missingFiles : "none");
 

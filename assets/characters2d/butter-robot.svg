@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="96" viewBox="0 0 64 96" role="img" aria-label="Butter Robot">
+  <ellipse cx="32" cy="91" rx="12" ry="3" fill="#000" opacity=".18"/>
+  <g stroke="#0b0f14" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M27 76v12" fill="none"/>
+    <path d="M37 76v12" fill="none"/>
+    <path d="M23 88h8" fill="none"/>
+    <path d="M33 88h8" fill="none"/>
+    <path d="M22 46q0-6 6-6h8q6 0 6 6l2 24q0 6-6 6H26q-6 0-6-6z" fill="#b9c2c9"/>
+    <path d="M37 41q5 1 5 5l2 24q0 5-5 6z" fill="#98a3ac" stroke="none"/>
+    <path d="M24 44q0-8 8-8t8 8" fill="#d6dde1"/>
+    <path d="M32 36v-8" fill="none"/>
+    <circle cx="32" cy="24" r="6" fill="#f5f7f3"/>
+    <circle cx="32" cy="24" r="2.5" fill="#0b0f14" stroke="none"/>
+    <circle cx="31" cy="23" r="1" fill="#fff" stroke="none"/>
+    <circle cx="32" cy="58" r="3" fill="#f0e14a"/>
+  </g>
+</svg>

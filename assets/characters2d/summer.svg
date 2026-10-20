@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="96" viewBox="0 0 64 96" role="img" aria-label="Summer">
+  <ellipse cx="32" cy="91" rx="14" ry="3.5" fill="#000" opacity=".18"/>
+  <g stroke="#0b0f14" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M16 26q-5 34 4 44l5-4q-5-16-2-36z" fill="#c65a3a"/>
+    <path d="M48 26q5 34-4 44l-5-4q5-16 2-36z" fill="#c65a3a"/>
+    <path d="M25 70h6v16h-6z" fill="#4a6fa5"/>
+    <path d="M33 70h6v16h-6z" fill="#4a6fa5"/>
+    <path d="M22 84q4-3 10 0v6H22z" fill="#6b4a35"/>
+    <path d="M32 84q6-3 10 0v6H32z" fill="#6b4a35"/>
+    <path d="M22 48q10-5 20 0l2 25q-12 5-24 0z" fill="#e2764f"/>
+    <path d="M37 48q5 2 5 0l2 25q-5 3-10 4z" fill="#c45f3d" stroke="none"/>
+    <path d="M27 48l5 5 5-5" fill="none"/>
+    <path d="M21 51q-5 10-2 18" fill="none"/>
+    <path d="M43 51q5 10 2 18" fill="none"/>
+    <circle cx="19" cy="70" r="3.4" fill="#f3c9a5"/>
+    <circle cx="45" cy="70" r="3.4" fill="#f3c9a5"/>
+    <ellipse cx="32" cy="30" rx="14" ry="16" fill="#f3c9a5"/>
+    <path d="M18 30q-3-18 14-20 17 2 14 20-4-8-8-9-3 4-6 0-3 4-6 0-3 4-6 0-2 2-2 9z" fill="#c65a3a"/>
+    <path d="M22 24l6-1" fill="none" stroke-width="2"/>
+    <path d="M36 23l6 1" fill="none" stroke-width="2"/>
+    <ellipse cx="26" cy="31" rx="4.2" ry="5" fill="#fff"/>
+    <ellipse cx="38" cy="31" rx="4.2" ry="5" fill="#fff"/>
+    <circle cx="26" cy="31.5" r="1.7" fill="#0b0f14" stroke="none"/>
+    <circle cx="38" cy="31.5" r="1.7" fill="#0b0f14" stroke="none"/>
+    <path d="M27 40q5 3 10 0" fill="none"/>
+  </g>
+</svg>
