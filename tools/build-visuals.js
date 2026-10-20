@@ -1,6 +1,5 @@
-// Hero vectors: SVG Repo (440512 Rick, 440507 Morty) under the SVG Repo License;
-// Parade vectors: traced from Icons8 free icons (icons8.com, link required);
 // Rick and Morty characters are (c) Adult Swim. Fan use only.
+// All character art is original pixel art generated from tools/sprites.json.
 const fs = require("fs");
 const path = require("path");
 
@@ -8,19 +7,20 @@ const root = path.join(__dirname, "..");
 const assets = path.join(root, "assets");
 const FONT = "ui-monospace, 'Cascadia Mono', 'Courier New', monospace";
 
-const charactersDir = path.join(assets, "characters");
-function loadSvgInner(file) {
-  const s = fs.readFileSync(path.join(charactersDir, file), "utf8");
+function loadSprite(key) {
+  const s = fs.readFileSync(path.join(assets, "sprites", key + ".svg"), "utf8");
   return s.replace(/<\?xml[^>]*\?>/g, "").replace(/^[\s\S]*?<svg[^>]*>/, "").replace(/<\/svg>\s*$/, "");
 }
-const RICK_ART = loadSvgInner("rick.svg");
-const MORTY_ART = loadSvgInner("morty.svg");
+const RICK_ART = loadSprite("rick");
+const MORTY_ART = loadSprite("morty");
 
-function tumble(art, x, y, scale, begin, dir, dur) {
+function tumble(art, x, y, scale, begin, dir, dur, cx, cy) {
+  const ox = cx === undefined ? 32 : cx;
+  const oy = cy === undefined ? 32 : cy;
   return `
     <g transform="translate(${x} ${y}) scale(${scale})">
       <g>
-        <animateTransform attributeName="transform" type="rotate" values="${dir * 6} 32 32;${-dir * 6} 32 32;${dir * 6} 32 32" dur="${dur}s" begin="${begin}s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="rotate" values="${dir * 6} ${ox} ${oy};${-dir * 6} ${ox} ${oy};${dir * 6} ${ox} ${oy}" dur="${dur}s" begin="${begin}s" repeatCount="indefinite"/>
         <g>
           <animateTransform attributeName="transform" type="translate" values="0 0;0 -7;0 0" dur="${(dur * 0.8).toFixed(1)}s" begin="${begin}s" repeatCount="indefinite"/>
           ${art}
@@ -141,8 +141,8 @@ const hero = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3
 
     <ellipse cx="88" cy="366" rx="58" ry="66" fill="#9ce04a" opacity=".22" filter="url(#soft)"/>
     <ellipse cx="432" cy="382" rx="54" ry="60" fill="#9ce04a" opacity=".22" filter="url(#soft)"/>
-    ${tumble(RICK_ART, 20, 262, 1.98, 0, 1, 7.4)}
-    ${tumble(MORTY_ART, 370, 284, 1.92, 1.1, -1, 8.2)}
+    ${tumble(RICK_ART, 110, 270, 4, 0, 1, 7.4, 8, 12)}
+    ${tumble(MORTY_ART, 346, 270, 4, 1.1, -1, 8.2, 8, 12)}
 
     <rect x="1" y="1" width="518" height="518" rx="26" fill="none" stroke="#ffffff" stroke-opacity=".09"/>
   </g>
@@ -150,18 +150,13 @@ const hero = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3
 `;
 
 const CREW = [
-  { file: "rick-sanchez.svg", color: "#a7dbe8" },
-  { file: "morty-smith.svg", color: "#f0e14a" },
-  { file: "jerry-smith.svg", color: "#93a7bd" },
-  { file: "beth-smith.svg", color: "#f2d06b" },
-  { file: "summer-smith.svg", color: "#e2764f" },
-  { file: "plambus.svg", color: "#c9a06b" }
+  { key: "rick", color: "#a7dbe8" },
+  { key: "morty", color: "#f0e14a" },
+  { key: "jerry", color: "#93a7bd" },
+  { key: "beth", color: "#f2d06b" },
+  { key: "summer", color: "#e2764f" },
+  { key: "plumbus", color: "#c9a06b" }
 ];
-
-function crewArt(file, color) {
-  const inner = loadSvgInner(path.join("icons8", file));
-  return inner.replace(/fill="#d9ff9e"/g, `fill="${color}"`);
-}
 
 const TILE = 112;
 const GAP = 20;
@@ -169,17 +164,18 @@ let paradeItems = "";
 CREW.forEach((c, i) => {
   const x = 500 - (CREW.length * TILE + (CREW.length - 1) * GAP) / 2 + i * (TILE + GAP);
   const begin = (i * 0.26).toFixed(2);
-  const art = crewArt(c.file, c.color);
+  const art = loadSprite(c.key);
   paradeItems += `
   <g transform="translate(${x} 4)">
     <rect width="${TILE}" height="${TILE}" rx="18" fill="#0b1410" stroke="#21382a"/>
     <rect x="1" y="1" width="${TILE - 2}" height="${TILE - 2}" rx="17" fill="none" stroke="#ffffff" stroke-opacity=".04"/>
-    <circle cx="${TILE / 2}" cy="${TILE / 2 + 6}" r="34" fill="${c.color}" opacity=".07">
+    <circle cx="${TILE / 2}" cy="${TILE / 2 + 2}" r="34" fill="${c.color}" opacity=".07">
       <animate attributeName="opacity" values=".03;.13;.03" dur="3.4s" begin="${begin}s" repeatCount="indefinite"/>
     </circle>
+    <ellipse cx="${TILE / 2}" cy="105" rx="24" ry="4" fill="${c.color}" opacity=".14"/>
     <g>
       <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="2.9s" begin="${begin}s" repeatCount="indefinite"/>
-      <g transform="translate(${TILE / 2 - 37} ${TILE / 2 - 37}) scale(1.16)">
+      <g transform="translate(24 8) scale(4)">
         ${art}
       </g>
     </g>
@@ -341,15 +337,6 @@ const footer = `<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="56"
   </g>
 </svg>
 `;
-
-const arcadeDir = path.join(charactersDir, "icons8", "arcade");
-fs.mkdirSync(arcadeDir, { recursive: true });
-CREW.forEach((c) => {
-  fs.writeFileSync(
-    path.join(arcadeDir, path.basename(c.file)),
-    `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">${crewArt(c.file, c.color)}</svg>\n`
-  );
-});
 
 fs.writeFileSync(path.join(assets, "hero-portal.svg"), hero);
 fs.writeFileSync(path.join(assets, "sprites-parade.svg"), parade);
