@@ -1,62 +1,72 @@
 <div align="center">
 
-<img src="assets/hero-portal.svg?v=5" width="340" alt="Green portal with Rick and Morty" />
-<sub>Portal art from <a href="https://github.com/flborrelli/rick-and-morty-game">flborrelli/rick-and-morty-game</a></sub>
+## Mark Jory Andrade
 
-<a href="https://jorayyy.github.io/Jorayyy/"><img src="assets/sprites-parade.svg?v=5" width="100%" alt="Character select" /></a>
+**Full-stack engineer — HRIS, payroll, and operations systems**
 
-<a href="https://jorayyy.github.io/Jorayyy/"><img src="assets/arcade-button.svg?v=5" width="420" alt="Play the arcade" /></a>
+Tacloban City, Philippines · open to remote and Cebu/Tacloban roles
 
-<img src="assets/save-file.svg?v=5" width="360" alt="Save file" />
+[Email](mailto:makoyjorey@gmail.com) · [LinkedIn](https://www.linkedin.com/in/mark-jory-andrade-58003b343/) · [Arcade](https://jorayyy.github.io/Jorayyy/)
 
 </div>
 
-<h2 align="center">Full-stack developer - Tacloban City, Philippines</h2>
+I build the software a BPO actually runs on: time and attendance, Philippine statutory payroll, leave, and multi-site inventory. Most of these systems are designed, built, and shipped solo end to end — data model, permissions, payroll math, UI, and deployment.
 
-<p align="center">
-  I build HRIS, payroll, attendance, inventory, and commerce systems for BPO operations and local businesses.
-  Most of my work is <b>Next.js + TypeScript + PostgreSQL</b>, with Laravel and PHP when a project needs them.
-</p>
+## Selected work
 
-### Featured builds
+### [prime-hris](https://github.com/Jorayyy/prime-hris) · [live](https://prime-hris.vercel.app) — HRIS and payroll for multi-site BPO operations
+`Next.js 16` · `React 19` · `Prisma 6` · `PostgreSQL` · `Socket.IO`
 
-| Project | Stack | What it does |
-| --- | --- | --- |
-| **[prime-hris](https://prime-hris.vercel.app)** - [code](https://github.com/Jorayyy/prime-hris) | Next.js, Prisma, PostgreSQL | HRIS for BPO operations: time and attendance, payroll, leave, and employee records. |
-| **[mebs_inventory](https://mebs-inventory.vercel.app)** - [code](https://github.com/Jorayyy/mebs_inventory) | Next.js, TypeScript | Inventory, asset, and equipment management for multi-site BPO operations. |
-| **[hrweb](https://hrweb-eight.vercel.app)** - [code](https://github.com/Jorayyy/hrweb) | Next.js, TypeScript | HR, timekeeping, and payroll for BPO teams. |
-| **[saripos](https://saripos-eta.vercel.app)** - [code](https://github.com/Jorayyy/saripos) | Next.js, TypeScript | Point of sale for sari-sari stores and small retail. |
-| **[qr](https://qr-psi-drab.vercel.app)** - [code](https://github.com/Jorayyy/qr) | Next.js, TypeScript | QR-based scanning and attendance. |
+33-model HRIS covering employees, shift templates, attendance, leave, and payroll.
 
-**Also shipping:** [micsapparel](https://micsapparel.vercel.app), [giusseppe](https://giusseppe.vercel.app), [knockles](https://knockles.vercel.app).
+- **Philippine payroll engine** — DOLE, SSS (RA 11199), PhilHealth UHC, Pag-IBIG, and TRAIN withholding computed from bracket tables stored in the database, so a rate change is a data update, not a redeploy.
+- **Attendance to payslip pipeline** — shift assignments, overtime and holiday rules, payroll exceptions, payslips with adjustments, and an audit entry for every mutation.
+- **Real-time layer** — Socket.IO chat and HR inbox on a custom Next server, with online presence and typing state tracked server-side.
 
-### The arcade
+### [mebs_inventory](https://github.com/Jorayyy/mebs_inventory) · [live](https://mebs-inventory.vercel.app) — asset and inventory management for multi-site BPOs
+`Next.js` · `Prisma` · `Auth.js v5` · `Vitest`
 
-The buttons above open **[jorayyy.github.io/Jorayyy](https://jorayyy.github.io/Jorayyy/)** - a small arcade built into this profile.
+36-model inventory system: assets, consumables, transfers, maintenance, and offboarding clearance.
 
-- **Portal Kingdom** - `Left` / `Right` or `A` / `D` to move, `Space` / `Up` / `W` to jump, `P` to pause, `M` to mute. Coins are +50, stomping Jerry is +100. You get three lives.
-- **Meeseeks Whack** - 30 seconds. Tap the Meeseeks for +1, the Butter Robot for +2, and never tap Rick (-3). Keys `1`-`9` work too.
-- **Character select** - click a portrait or press `1`-`6`. Every character has its own sprite, tint, and stats panel.
+- **Authorization is server-side only** — 52 permissions across 8 roles, enforced by `requirePermission` in every action and page, with `siteScope` keeping site admins inside their own sites.
+- **Custody trail** — multi-line site-to-site transfers and an exit clearance workflow that blocks offboarding until equipment comes back.
+- **Tested** — 8 Vitest suites plus a smoke script that boots the production build and asserts routes, login, and CSV exports.
 
-### Stack
+### [qr](https://github.com/Jorayyy/qr) · [live](https://qr-psi-drab.vercel.app) — QR visitor management with check-in/check-out
+`Next.js 16` · `Prisma 7` · `Argon2` · `TOTP`
 
-`TypeScript` / `Next.js` / `React` / `Tailwind CSS` / `Prisma` / `PostgreSQL` / `Laravel` / `PHP` / `MySQL`
+- **Security first** — Argon2 password hashing, TOTP MFA for staff, server-side RBAC matrix, audit log, and validated uploads.
+- **Rate limiting that survives serverless** — Postgres counters with an in-memory short-circuit per instance, so a burst of traffic stops hammering the database.
+- **Retention by policy** — visitor photos live in private blob storage and are purged by a scheduled retention job.
+- **CI on every push** — lint, typecheck, 9 Vitest suites, and a production build.
 
-<p align="center">
-  <img height="168" src="https://github-readme-stats.vercel.app/api?username=Jorayyy&show_icons=true&hide_border=true&theme=chartreuse-dark&rank_icon=github" alt="GitHub stats" />
-  <img height="168" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Jorayyy&layout=compact&hide_border=true&theme=chartreuse-dark&langs_count=8" alt="Top languages" />
-</p>
+### [hrweb](https://github.com/Jorayyy/hrweb) · [live](https://hrweb-eight.vercel.app) — payroll and timekeeping, rebuilt end to end
+`Next.js 16` · `Drizzle ORM` · `Neon` · `Vitest`
 
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Jorayyy/Jorayyy/output/snake-dark.svg" />
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Jorayyy/Jorayyy/output/snake.svg" />
-    <img alt="Contribution snake" src="https://raw.githubusercontent.com/Jorayyy/Jorayyy/output/snake.svg" />
-  </picture>
-</p>
+- **Statutory contributions** with timezone-correct daily cutoffs (Asia/Manila) and a manual DTR review step before pay runs.
+- **Sensitive identifiers encrypted at rest** — AES-256-GCM with a key that hard-fails in production if missing.
+- **12 Vitest suites** covering payroll math, leave, lockout, and access scope.
+
+**Also shipping:** [saripos](https://github.com/Jorayyy/saripos) (multi-store POS), [jorify](https://github.com/Jorayyy/jorify) (multi-tenant commerce SaaS), plus client storefronts for retail, food, and gym businesses.
+
+## How I build
+
+- **Typed boundaries.** Zod at every input, server actions for every mutation, nothing trusted from the browser. Permissions are checked in the data layer, not in the component.
+- **Money and access control get tests.** Payroll arithmetic, statutory tables, and permission checks are the code I refuse to ship on vibes.
+- **Boring infrastructure.** Postgres, migrations in version control, CI that runs lint, typecheck, tests, and a build on every push.
+- **Readable over clever.** Every repo here is something a new hire could pick up.
+
+## Stack
+
+`TypeScript` · `Next.js` · `React` · `Tailwind CSS` · `Prisma` / `Drizzle` · `PostgreSQL` · `Auth.js` · `Vitest` · `Docker` · `Laravel` / `PHP` · `MySQL`
+
+<details>
+<summary>Off the clock</summary>
+
+The [arcade](https://jorayyy.github.io/Jorayyy/) in this profile is a canvas game I built for fun — character select, collision, and save state with no engine.
+
+</details>
 
 <div align="center">
-
-<img src="assets/divider.svg?v=5" width="100%" alt="" />
-
+<sub>Open to senior full-stack roles — <a href="mailto:makoyjorey@gmail.com">makoyjorey@gmail.com</a></sub>
 </div>
